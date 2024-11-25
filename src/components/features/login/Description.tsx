@@ -17,6 +17,7 @@ const Wrapper = styled.div``;
 const DescriptionWrapper = styled.div`
   font-family: ChangwonDangamAsacBold;
   font-size: 4.5rem;
+  letter-spacing: 0;
 `;
 
 const PickColor = styled.span`
