@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import peep from '@assets/Peep.png';
+import peep from '@assets/PeepLetter.png';
 import {COMMON} from '@styles/common';
 export const Description = () => {
   return (
@@ -14,10 +14,11 @@ export const Description = () => {
 };
 
 const Wrapper = styled.div``;
+
 const DescriptionWrapper = styled.div`
   font-family: ChangwonDangamAsacBold;
   font-size: 4.5rem;
-  letter-spacing: 0;
+  letter-spacing: normal;
 `;
 
 const PickColor = styled.span`
