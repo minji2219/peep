@@ -17,6 +17,16 @@
 
 body {
   font-family: 'Pretendard-Regular';
-  letter-spacing: -0.15rem;
+  letter-spacing: -0.05em;
   margin: 0;
+}
+
+button,
+input {
+  font-family: 'Pretendard-Regular';
+  letter-spacing: -0.05em;
+}
+
+button {
+  cursor: pointer;
 }
