@@ -1,11 +1,12 @@
 import styled from '@emotion/styled';
+import {forwardRef, InputHTMLAttributes, Ref} from 'react';
 
-interface Props {
+interface Props extends InputHTMLAttributes<HTMLInputElement> {
   placeholder: string;
 }
-export const Input = ({placeholder}: Props) => {
-  return <Wrapper placeholder={placeholder} />;
-};
+export const Input = forwardRef(({placeholder}: Props, ref: Ref<HTMLInputElement>) => {
+  return <Wrapper placeholder={placeholder} ref={ref} />;
+});
 const Wrapper = styled.input`
   width: 100%;
   box-sizing: border-box;

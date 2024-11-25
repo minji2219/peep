@@ -1,8 +1,10 @@
 import {Input} from '@components/common/Input';
 import styled from '@emotion/styled';
 import {COMMON} from '@styles/common';
+import {useForm} from 'react-hook-form';
 
 export const LoginBox = () => {
+  const {register} = useForm();
   return (
     <Wrapper>
       <Description>
@@ -10,8 +12,10 @@ export const LoginBox = () => {
         <br />
         되셨나요?
       </Description>
-      <Input placeholder="아이디" />
-      <Input placeholder="비밀번호" />
+      <Form>
+        <Input placeholder="아이디" {...(register('id'), {required: true})} />
+        <Input placeholder="비밀번호" {...(register('password'), {required: true})} />
+      </Form>
     </Wrapper>
   );
 };
@@ -31,8 +35,7 @@ const Description = styled.div`
 `;
 
 const PeepColor = styled.span`
-  background-image: linear-gradient(${COMMON.color.yellow} 0%, ${COMMON.color.primary});
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
+  color: ${COMMON.color.primary};
 `;
+
+const Form = styled.form``;
