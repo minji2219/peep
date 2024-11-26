@@ -32,7 +32,7 @@ const Top = styled.div`
 
 const Image = styled.img`
   position: absolute;
-  right: -200px;
+  right: -170px;
   top: 180px;
   z-index: -1;
 `;

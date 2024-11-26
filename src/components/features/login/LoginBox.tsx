@@ -42,7 +42,7 @@ export const LoginBox = () => {
 const Wrapper = styled.div`
   width: 50%;
   box-sizing: border-box;
-  background-color: ${COMMON.color.backgroundColor};
+  background-color: ${COMMON.color.lightBackgroundColor};
   border-radius: 49.26px 0 0 0;
   padding: 80px 64px;
 `;
