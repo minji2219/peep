@@ -16,7 +16,6 @@ const Layout = styled.div`
   background-color: ${COMMON.color.darkBackgroundColor};
   width: 100%;
   min-height: 100vh;
-  color: white;
 `;
 
 const Wrapper = styled.div`

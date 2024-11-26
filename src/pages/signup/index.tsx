@@ -1,5 +1,11 @@
+import {AgreementBox} from '@components/features/signup/AgreementBox';
+
 const Signup = () => {
-  return <div>회원가입</div>;
+  return (
+    <div>
+      <AgreementBox />
+    </div>
+  );
 };
 
 export default Signup;
