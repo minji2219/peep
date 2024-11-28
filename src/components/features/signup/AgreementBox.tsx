@@ -1,26 +1,23 @@
+import {LightBox} from '@components/common/layout/LightBox';
 import styled from '@emotion/styled';
 import {COMMON} from '@styles/common';
-import {useState} from 'react';
+import {Dispatch, SetStateAction} from 'react';
 
-export const AgreementBox = () => {
-  const [isAgree, setIsAgree] = useState(false);
+interface Props {
+  setIsAgree: Dispatch<SetStateAction<boolean>>;
+}
+export const AgreementBox = ({setIsAgree}: Props) => {
   return (
-    <Wrapper>
+    <LightBox padding="80px 160px 160px">
       <Title>개인정보수집동의</Title>
       <Content></Content>
       <Label>
         동의합니다.
-        <AgreeBtn type="radio" checked={isAgree} onClick={() => setIsAgree(!isAgree)} />
+        <AgreeBtn type="radio" onClick={() => setIsAgree(false)} />
       </Label>
-    </Wrapper>
+    </LightBox>
   );
 };
-
-const Wrapper = styled.div`
-  background-color: ${COMMON.color.lightBackgroundColor};
-  padding: 80px 160px 160px;
-  border-radius: 30px 30px 0 0;
-`;
 
 const Title = styled.div`
   font-weight: bold;
@@ -30,8 +27,8 @@ const Title = styled.div`
 
 const Content = styled.div`
   background-color: ${COMMON.color.darkGray};
-  width: 950px;
   height: 440px;
+  box-sizing: border-box;
 `;
 
 const Label = styled.label`
