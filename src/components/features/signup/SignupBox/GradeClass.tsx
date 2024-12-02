@@ -43,7 +43,6 @@ const Description = styled.div`
 
 const Selector = styled.select`
   width: 150px;
-  height: 44px;
   border-radius: 30px;
   padding: 13px;
   appearance: none;
