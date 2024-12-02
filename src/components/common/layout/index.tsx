@@ -1,12 +1,14 @@
 import styled from '@emotion/styled';
 import {COMMON} from '@styles/common';
 import {Outlet} from 'react-router-dom';
-
+import logo from '@assets/Logo.png';
 export const DefaultLayout = () => {
   return (
     <Layout>
       <Wrapper>
-        <Logo>PEEP</Logo>
+        <Logo>
+          <img src={logo} alt="logo" />
+        </Logo>
         <Outlet />
       </Wrapper>
     </Layout>
@@ -27,12 +29,5 @@ const Wrapper = styled.div`
 `;
 
 const Logo = styled.span`
-  display: inline-block;
-  font-family: ChangwonDangamAsacBold;
-  font-size: 7rem;
-  letter-spacing: normal;
-  background-image: linear-gradient(to right, ${COMMON.color.yellow}, ${COMMON.color.primary});
-  background-clip: text;
-  color: transparent;
   margin: 110px 0;
 `;
