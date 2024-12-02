@@ -36,8 +36,6 @@ const Wrapper = styled.div`
 
 const Description = styled.div`
   color: ${COMMON.color.darkGray};
-  font-size: 16px;
-  font-weight: normal;
   position: absolute;
   top: 10px;
   left: 95px;

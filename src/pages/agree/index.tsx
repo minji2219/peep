@@ -1,19 +1,19 @@
 import {LightBox} from '@components/common/layout/LightBox';
 import styled from '@emotion/styled';
+import {PATH} from '@routes/path';
 import {COMMON} from '@styles/common';
-import {Dispatch, SetStateAction} from 'react';
+import {useNavigate} from 'react-router-dom';
 
-interface Props {
-  setIsAgree: Dispatch<SetStateAction<boolean>>;
-}
-export const AgreementBox = ({setIsAgree}: Props) => {
+export const Agree = () => {
+  const navigate = useNavigate();
+
   return (
     <LightBox padding="80px 160px 160px">
       <Title>개인정보수집동의</Title>
       <Content></Content>
       <Label>
         동의합니다.
-        <AgreeBtn type="radio" onClick={() => setIsAgree(false)} />
+        <AgreeBtn type="radio" onClick={() => navigate(PATH.signup)} />
       </Label>
     </LightBox>
   );
@@ -42,4 +42,5 @@ const Label = styled.label`
 const AgreeBtn = styled.input`
   width: 25px;
   height: 25px;
+  cursor: pointer;
 `;

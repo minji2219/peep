@@ -6,6 +6,7 @@ import Signup from '@pages/signup';
 import Questions from '@pages/questions';
 import Friends from '@pages/friends';
 import {DefaultLayout} from '@components/common/layout';
+import {Agree} from '@pages/agree';
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
       {
         path: PATH.main,
         element: <Main />,
+      },
+      {
+        path: PATH.agree,
+        element: <Agree />,
       },
       {
         path: PATH.signup,
