@@ -7,7 +7,7 @@ export const IdentifyVerification = () => {
   return (
     <Wrapper>
       <Container>
-        <Input placeholder="이름" border type="thin" />
+        <Input placeholder="이름" border theme="thin" />
         <SelectSex type="radio" value="남" name="sex" id="남" />
         <Label htmlFor="남">남</Label>
         <SelectSex type="radio" value="여" name="sex" id="여" />
@@ -15,18 +15,22 @@ export const IdentifyVerification = () => {
       </Container>
 
       <Container>
-        <Input placeholder="전화번호" border type="thin" />
-        <Button onClick={() => {}} border bgColor="white" color="black">
+        <Input placeholder="전화번호" border theme="thin" />
+        <Button onClick={() => {}} border bgColor="white" color="black" padding="6px 14px">
           전송
         </Button>
       </Container>
 
       <Container>
-        <Input placeholder="인증번호" border type="thin" />
-        <Button onClick={() => {}} border bgColor="white" color="black">
+        <Input placeholder="인증번호" border theme="thin" />
+        <Button onClick={() => {}} border bgColor="white" color="black" padding="6px 14px">
           인증
         </Button>
       </Container>
+
+      <Button onClick={() => {}} bgColor={COMMON.color.darkBackgroundColor}>
+        패스로 인증하기
+      </Button>
     </Wrapper>
   );
 };
