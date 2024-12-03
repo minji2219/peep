@@ -5,21 +5,25 @@ import {ReactNode} from 'react';
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   bgColor?: string;
+  color?: string;
+  border?: boolean;
+  padding?: string;
   onClick: () => void;
 }
-export const Button = ({children, bgColor = COMMON.color.primary, onClick, type = 'submit', ...rest}: Props) => {
+export const Button = ({children, padding = '12px', bgColor = COMMON.color.primary, color = 'white', onClick, type = 'submit', ...rest}: Props) => {
   return (
-    <Wrapper type={type} onClick={onClick} bgColor={bgColor} {...rest}>
+    <Wrapper type={type} padding={padding} onClick={onClick} bgColor={bgColor} color={color} {...rest}>
       {children}
     </Wrapper>
   );
 };
 
-const Wrapper = styled.button<{bgColor: string}>((props) => ({
+const Wrapper = styled.button<{padding: string; border?: boolean; bgColor: string; color: string}>((props) => ({
   backgroundColor: props.bgColor,
   fontSize: '16px',
-  color: 'white',
+  color: props.color,
   borderRadius: '30px',
-  border: 'none',
-  padding: '12px',
+  border: props.border ? `1px solid ${COMMON.color.lightBlack}` : 'none',
+  padding: props.padding,
+  whiteSpace: 'nowrap',
 }));

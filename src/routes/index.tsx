@@ -5,29 +5,38 @@ import Login from '@pages/login';
 import Signup from '@pages/signup';
 import Questions from '@pages/questions';
 import Friends from '@pages/friends';
+import {DefaultLayout} from '@components/common/layout';
+import {Agree} from '@pages/agree';
 
 const router = createBrowserRouter([
-  // element: layout
-  // children:[]
   {
-    path: PATH.main,
-    element: <Main />,
+    element: <DefaultLayout />,
+    children: [
+      {
+        path: PATH.main,
+        element: <Main />,
+      },
+      {
+        path: PATH.agree,
+        element: <Agree />,
+      },
+      {
+        path: PATH.signup,
+        element: <Signup />,
+      },
+      {
+        path: PATH.questions,
+        element: <Questions />,
+      },
+      {
+        path: PATH.friends,
+        element: <Friends />,
+      },
+    ],
   },
   {
     path: PATH.login,
     element: <Login />,
-  },
-  {
-    path: PATH.signup,
-    element: <Signup />,
-  },
-  {
-    path: PATH.questions,
-    element: <Questions />,
-  },
-  {
-    path: PATH.friends,
-    element: <Friends />,
   },
 ]);
 

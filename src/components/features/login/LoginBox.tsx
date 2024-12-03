@@ -1,10 +1,13 @@
 import {Button} from '@components/common/Button';
 import {Input} from '@components/common/Input';
 import styled from '@emotion/styled';
+import {PATH} from '@routes/path';
 import {COMMON} from '@styles/common';
 import {useForm} from 'react-hook-form';
+import {useNavigate} from 'react-router-dom';
 
 export const LoginBox = () => {
+  const navigate = useNavigate();
   const {register} = useForm();
   return (
     <Wrapper>
@@ -22,7 +25,7 @@ export const LoginBox = () => {
           자동 로그인
         </Label>
         <Button onClick={() => {}}>로그인</Button>
-        <Button type="button" onClick={() => {}} bgColor={COMMON.color.darkGray}>
+        <Button type="button" onClick={() => navigate(PATH.agree)} bgColor={COMMON.color.darkGray}>
           회원가입
         </Button>
         <Button type="button" onClick={() => {}} bgColor="transparent" style={{color: COMMON.color.lightBlack}}>
@@ -42,7 +45,7 @@ export const LoginBox = () => {
 const Wrapper = styled.div`
   width: 50%;
   box-sizing: border-box;
-  background-color: ${COMMON.color.backgroundColor};
+  background-color: ${COMMON.color.lightBackgroundColor};
   border-radius: 49.26px 0 0 0;
   padding: 80px 64px;
 `;

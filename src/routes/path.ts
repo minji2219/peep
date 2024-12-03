@@ -5,4 +5,5 @@ export const PATH = {
   friends: '/friends',
   questions: '/questions',
   mypage: '/mypage',
+  agree: '/agree',
 };
