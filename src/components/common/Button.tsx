@@ -18,7 +18,7 @@ export const Button = ({children, padding = '12px', bgColor = COMMON.color.prima
   );
 };
 
-const Wrapper = styled.button<{padding: string; border?: boolean; bgColor: string; color: string}>((props) => ({
+const Wrapper = styled.button<Pick<Props, 'padding' | 'border' | 'bgColor' | 'color'>>((props) => ({
   backgroundColor: props.bgColor,
   fontSize: '16px',
   color: props.color,

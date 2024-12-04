@@ -10,7 +10,8 @@ export const LightBox = ({children, padding = '30px'}: Props) => {
   return <Wrapper padding={padding}>{children}</Wrapper>;
 };
 
-const Wrapper = styled.div<{padding: string}>((props) => ({
+const Wrapper = styled.div<Pick<Props, 'padding'>>((props) => ({
+  position: 'relative',
   backgroundColor: COMMON.color.lightBackgroundColor,
   borderRadius: '30px 30px 0 0',
   width: '100%',
