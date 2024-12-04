@@ -7,15 +7,13 @@ import Questions from '@pages/questions';
 import Friends from '@pages/friends';
 import {DefaultLayout} from '@components/common/layout';
 import {Agree} from '@pages/agree';
+import {NavLayout} from '@components/common/layout/NavLayout';
+import Mypage from '@pages/mypage';
 
 const router = createBrowserRouter([
   {
     element: <DefaultLayout />,
     children: [
-      {
-        path: PATH.main,
-        element: <Main />,
-      },
       {
         path: PATH.agree,
         element: <Agree />,
@@ -25,12 +23,25 @@ const router = createBrowserRouter([
         element: <Signup />,
       },
       {
-        path: PATH.questions,
-        element: <Questions />,
-      },
-      {
-        path: PATH.friends,
-        element: <Friends />,
+        element: <NavLayout />,
+        children: [
+          {
+            path: PATH.main,
+            element: <Main />,
+          },
+          {
+            path: PATH.questions,
+            element: <Questions />,
+          },
+          {
+            path: PATH.friends,
+            element: <Friends />,
+          },
+          {
+            path: PATH.mypage,
+            element: <Mypage />,
+          },
+        ],
       },
     ],
   },
