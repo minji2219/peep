@@ -8,36 +8,55 @@ export const NavigationBar = () => {
   const navigate = useNavigate();
   return (
     <Wrapper>
-      <Menu onClick={() => navigate(PATH.questions)} presentPage={location.pathname === PATH.questions}>
-        질문리스트
-      </Menu>
-      <Menu onClick={() => navigate(PATH.main)} presentPage={location.pathname === PATH.main}>
-        홈
-      </Menu>
-      <Menu onClick={() => navigate(PATH.friends)} presentPage={location.pathname === PATH.friends}>
-        친구
-      </Menu>
-      <Menu onClick={() => navigate(PATH.mypage)} presentPage={location.pathname === PATH.mypage}>
-        마이페이지
-      </Menu>
+      <LoginState>로그인</LoginState>
+
+      <MenuList>
+        <Menu onClick={() => navigate(PATH.questions)} presentPage={location.pathname === PATH.questions}>
+          질문리스트
+        </Menu>
+        <Menu onClick={() => navigate(PATH.main)} presentPage={location.pathname === PATH.main}>
+          홈
+        </Menu>
+        <Menu onClick={() => navigate(PATH.friends)} presentPage={location.pathname === PATH.friends}>
+          친구
+        </Menu>
+        <Menu onClick={() => navigate(PATH.mypage)} presentPage={location.pathname === PATH.mypage}>
+          마이페이지
+        </Menu>
+      </MenuList>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.nav`
-  display: flex;
-  gap: 100px;
   position: absolute;
+  width: 100%;
   top: -70px;
   left: 50%;
   transform: translateX(-50%);
+`;
+
+const LoginState = styled.div`
+  position: absolute;
+  color: ${COMMON.color.darkGray};
+  cursor: pointer;
+  right: 0;
+  top: -270px;
+`;
+
+const MenuList = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
 `;
 
 const Menu = styled.div<{presentPage: boolean}>`
   font-size: 30px;
   cursor: pointer;
   padding: 9px 40px;
-  white-space: nowrap;
+  // white-space: nowrap;
   ${(props) => {
     if (props.presentPage) {
       return `
