@@ -10,7 +10,8 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 export const Input = forwardRef(({placeholder, theme = 'normal', ...rest}: Props, ref: Ref<HTMLInputElement>) => {
   return <Wrapper placeholder={placeholder} theme={theme} {...rest} ref={ref} />;
 });
-const Wrapper = styled.input<{border?: boolean; theme: 'normal' | 'thin'}>((props) => ({
+
+const Wrapper = styled.input<Pick<Props, 'border' | 'theme'>>((props) => ({
   width: '100%',
   boxSizing: 'border-box',
   padding: props.theme === 'normal' ? '14px 40px' : '13px 24px',
