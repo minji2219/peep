@@ -10,5 +10,6 @@ export const COMMON = {
     darkGray: '#999',
     lightGray: '#CDCDCD',
     lightBlack: '#555',
+    grayFont: '#666',
   },
 };

@@ -17,9 +17,9 @@ export const NavigationBar = () => {
         <Menu onClick={() => navigate(PATH.main)} presentPage={location.pathname === PATH.main}>
           홈
         </Menu>
-        <Menu onClick={() => navigate(PATH.friends)} presentPage={location.pathname === PATH.friends}>
+        {/* <Menu onClick={() => navigate(PATH.friends)} presentPage={location.pathname === PATH.friends}>
           친구
-        </Menu>
+        </Menu> */}
         <Menu onClick={() => navigate(PATH.mypage)} presentPage={location.pathname === PATH.mypage}>
           마이페이지
         </Menu>
@@ -46,17 +46,16 @@ const LoginState = styled.div`
 
 const MenuList = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  width: 80%;
-  margin: 0 auto;
+  gap: 120px;
 `;
 
 const Menu = styled.div<{presentPage: boolean}>`
   font-size: 30px;
   cursor: pointer;
   padding: 9px 40px;
-  // white-space: nowrap;
+  white-space: nowrap;
   ${(props) => {
     if (props.presentPage) {
       return `
