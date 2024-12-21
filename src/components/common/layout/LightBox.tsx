@@ -6,7 +6,7 @@ interface Props {
   children: ReactNode;
   padding?: string;
 }
-export const LightBox = ({children, padding = '30px'}: Props) => {
+export const LightBox = ({children, padding}: Props) => {
   return <Wrapper padding={padding}>{children}</Wrapper>;
 };
 
