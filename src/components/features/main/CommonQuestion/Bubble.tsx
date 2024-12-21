@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import {COMMON} from '@styles/common';
 import Arrow from '@assets/RightArrow.png';
 
-const BigBubble = () => {
+const Bubble = () => {
   return (
     <Wrapper>
       공통질문
@@ -42,4 +42,4 @@ const PickArrow = styled.div`
   }
 `;
 
-export default BigBubble;
+export default Bubble;

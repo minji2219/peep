@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import {COMMON} from '@styles/common';
-import BigBubble from './BigBubble';
+import Bubble from './Bubble';
 import MainCharacter from '@assets/MainCharacter.png';
 
 const CommonQuestion = () => {
@@ -14,7 +14,7 @@ const CommonQuestion = () => {
           <Title>오늘의 질문!</Title>
           <Timer>00분 00초 뒤 새로운 질문</Timer>
         </TitleWrapper>
-        <BigBubble />
+        <Bubble />
       </BubbleWrapper>
     </Wrapper>
   );
@@ -37,7 +37,6 @@ const Title = styled.div`
 `;
 
 const Timer = styled.div`
-  font-size: 20px;
   color: ${COMMON.color.lightBlack};
 `;
 

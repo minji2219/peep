@@ -15,6 +15,10 @@
   src: url('./fonts/ChangwonDangamAsac-Bold_0712.ttf');
 }
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: 'Pretendard-Regular';
   letter-spacing: -0.05em;
