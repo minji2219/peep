@@ -1,12 +1,15 @@
 import styled from '@emotion/styled';
 import {COMMON} from '@styles/common';
 import Arrow from '@assets/RightArrow.png';
+import {useSearchParams} from 'react-router-dom';
 
 const Question = () => {
+  const [, setSearchParams] = useSearchParams();
+
   return (
     <Wrapper>
       무작위질문
-      <PickArrow>
+      <PickArrow onClick={() => setSearchParams({question: '111'})}>
         <div>Pick!</div>
         <img src={Arrow} alt="화살표" />
       </PickArrow>

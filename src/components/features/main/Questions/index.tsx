@@ -6,7 +6,6 @@ const Questions = () => {
     <Cotainer>
       <Question />
       <Question />
-
       <Question />
       <Question />
     </Cotainer>

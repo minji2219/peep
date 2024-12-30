@@ -8,7 +8,7 @@ export const NavigationBar = () => {
   const navigate = useNavigate();
   return (
     <Wrapper>
-      <LoginState>로그인</LoginState>
+      <LoginState onClick={() => navigate(PATH.login)}>로그인</LoginState>
 
       <MenuList>
         <Menu onClick={() => navigate(PATH.questions)} presentPage={location.pathname === PATH.questions}>

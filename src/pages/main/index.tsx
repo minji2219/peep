@@ -2,16 +2,36 @@ import CommonQuestion from '@components/features/main/CommonQuestion';
 import Questions from '@components/features/main/Questions';
 import styled from '@emotion/styled';
 import {COMMON} from '@styles/common';
+import {BackgroundMode} from 'provider/BackgroundMode';
+import {useContext, useEffect} from 'react';
+import {useSearchParams} from 'react-router-dom';
 
 const Main = () => {
+  const [searchParams] = useSearchParams();
+  const {setBackgroundColor} = useContext(BackgroundMode);
+  const isQuestion = searchParams.get('question');
+
+  useEffect(() => {
+    if (isQuestion) {
+      setBackgroundColor(COMMON.color.grayFont);
+    }
+    return () => setBackgroundColor(COMMON.color.lightBackgroundColor);
+  }, [isQuestion]);
+
   return (
     <Wrapper>
-      <CommonQuestion />
-      <Descript>
-        <Line />이 질문들도 Pick해 보세요!
-        <Line />
-      </Descript>
-      <Questions />
+      {isQuestion ? (
+        <div></div>
+      ) : (
+        <div>
+          <CommonQuestion />
+          <Descript>
+            <Line />이 질문들도 Pick해 보세요!
+            <Line />
+          </Descript>
+          <Questions />
+        </div>
+      )}
     </Wrapper>
   );
 };

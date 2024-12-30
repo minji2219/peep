@@ -1,18 +1,24 @@
 import styled from '@emotion/styled';
-import {COMMON} from '@styles/common';
-import {ReactNode} from 'react';
+import {BackgroundMode} from 'provider/BackgroundMode';
+import {ReactNode, useContext} from 'react';
 
 interface Props {
   children: ReactNode;
   padding?: string;
 }
-export const LightBox = ({children, padding}: Props) => {
-  return <Wrapper padding={padding}>{children}</Wrapper>;
+
+export const LightBox = ({children, padding = ''}: Props) => {
+  const {backgroundColor} = useContext(BackgroundMode);
+  return (
+    <Wrapper padding={padding} background={backgroundColor}>
+      {children}
+    </Wrapper>
+  );
 };
 
-const Wrapper = styled.div<Pick<Props, 'padding'>>((props) => ({
+const Wrapper = styled.div<{padding: string; background: string}>((props) => ({
   position: 'relative',
-  backgroundColor: COMMON.color.lightBackgroundColor,
+  backgroundColor: props.background,
   borderRadius: '30px 30px 0 0',
   width: '100%',
   boxSizing: 'border-box',
