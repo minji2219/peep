@@ -23,7 +23,7 @@ const Wrapper = styled.div`
   font-size: 30px;
   border-radius: 100px 200px 10px 100px;
   padding: 0 50px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  box-shadow: ${COMMON.boxShadow.primary}
   position: relative;
 `;
 

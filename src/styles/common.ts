@@ -12,4 +12,7 @@ export const COMMON = {
     lightBlack: '#555',
     grayFont: '#666',
   },
+  boxShadow: {
+    primary: '0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);',
+  },
 };

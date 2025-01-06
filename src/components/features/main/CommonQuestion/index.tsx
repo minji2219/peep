@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import {COMMON} from '@styles/common';
 import Bubble from './Bubble';
-import MainCharacter from '@assets/MainCharacter.png';
+import MainCharacter from '@assets/MainCharacterPupple.png';
 
 const CommonQuestion = () => {
   return (

@@ -39,7 +39,7 @@ const Wrapper = styled.div`
   padding: 40px;
   border-radius: 30px 30px 30px 10px;
   background-color: white;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  box-shadow: ${COMMON.boxShadow.primary}
   position: relative;
   color: ${COMMON.color.grayFont};
 

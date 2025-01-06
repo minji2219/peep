@@ -23,4 +23,5 @@ const Wrapper = styled.div<{padding: string; background: string}>((props) => ({
   width: '100%',
   boxSizing: 'border-box',
   padding: props.padding,
+  transition: 'background-color 0.2s ease-in-out',
 }));
