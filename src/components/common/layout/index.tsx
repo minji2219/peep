@@ -29,5 +29,5 @@ const Wrapper = styled.div`
 `;
 
 const Logo = styled.span`
-  margin: 110px 0;
+  margin: 80px 0;
 `;

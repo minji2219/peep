@@ -1,5 +1,6 @@
 import CommonQuestion from '@components/features/main/CommonQuestion';
 import Questions from '@components/features/main/Questions';
+import Question from '@components/features/main/Question';
 import styled from '@emotion/styled';
 import {COMMON} from '@styles/common';
 import {BackgroundMode} from 'provider/BackgroundMode';
@@ -21,7 +22,7 @@ const Main = () => {
   return (
     <Wrapper>
       {isQuestion ? (
-        <div></div>
+        <Question />
       ) : (
         <div>
           <CommonQuestion />
