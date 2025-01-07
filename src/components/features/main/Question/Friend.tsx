@@ -7,21 +7,23 @@ interface Props {
 }
 const Friend = ({name}: Props) => {
   return (
-    <div>
+    <Wrapper>
       <Checkbox type="radio" name="name" id={name} />
-      <NameTag htmlFor={name}>
-        <Profile>
-          <ProfileDetail>
-            1학년 3반
-            <FollowBtn>팔로우</FollowBtn>
-          </ProfileDetail>
-        </Profile>
-        {name}
-      </NameTag>
-    </div>
+      <NameTag htmlFor={name}>{name}</NameTag>
+      <Profile>
+        <ProfileDetail>
+          1학년 3반
+          <FollowBtn>팔로우</FollowBtn>
+        </ProfileDetail>
+      </Profile>
+    </Wrapper>
   );
 };
 export default Friend;
+
+const Wrapper = styled.div`
+  position: relative;
+`;
 
 const NameTag = styled.label`
   position: relative;
@@ -60,7 +62,7 @@ const ProfileDetail = styled.div`
   position: absolute;
   right: 50%;
   transform: translateX(50%);
-  top: -110px;
+  top: -100px;
   visibility: hidden;
 
   &:hover {
@@ -86,7 +88,7 @@ const Profile = styled.div`
   top:-50px;
   left:50%;
   transform: translateX(-50%);
-
+  
   &:hover {
     ${ProfileDetail}{
       visibility: visible;
