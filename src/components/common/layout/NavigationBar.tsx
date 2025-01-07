@@ -41,7 +41,7 @@ const LoginState = styled.div`
   color: ${COMMON.color.darkGray};
   cursor: pointer;
   right: 0;
-  top: -270px;
+  top: -200px;
 `;
 
 const MenuList = styled.div`

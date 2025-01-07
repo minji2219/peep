@@ -3,12 +3,43 @@ import {Input} from '@components/common/Input';
 import styled from '@emotion/styled';
 import {PATH} from '@routes/path';
 import {COMMON} from '@styles/common';
-import {useForm} from 'react-hook-form';
+import {SubmitHandler, useForm} from 'react-hook-form';
 import {useNavigate} from 'react-router-dom';
+import {DeviceUUID} from 'device-uuid';
+import {useMutation} from '@tanstack/react-query';
+import {fetchInstance} from 'api/instance';
 
+interface FormValues {
+  id: string;
+  password: string;
+  autoLogin?: boolean;
+}
 export const LoginBox = () => {
   const navigate = useNavigate();
-  const {register} = useForm();
+  const {register, handleSubmit} = useForm<FormValues>();
+  const uuid = new DeviceUUID().get();
+  const userAgent = navigator.userAgent;
+
+  const {mutate} = useMutation({
+    mutationFn: async (data: FormValues) =>
+      await fetchInstance.post('/auth/login', {
+        body: {
+          userId: data.id,
+          userPassword: data.password,
+        },
+        headers: {
+          'Device-Id': uuid,
+          'User-Agent': userAgent,
+        },
+      }),
+  });
+
+  const getLogin: SubmitHandler<FormValues> = (data) => {
+    // TODO: error 캐치하는 방법 찾아보기
+    mutate(data);
+    console.log(data);
+  };
+
   return (
     <Wrapper>
       <Description>
@@ -17,9 +48,9 @@ export const LoginBox = () => {
         되셨나요?
       </Description>
 
-      <Form>
-        <Input placeholder="아이디" {...(register('id'), {required: true})} />
-        <Input placeholder="비밀번호" {...(register('password'), {required: true})} />
+      <Form onSubmit={handleSubmit(getLogin)}>
+        <Input placeholder="아이디" {...register('id', {required: true})} />
+        <Input placeholder="비밀번호" {...register('password', {required: true})} />
         <Label>
           <Checkbox type="checkbox" {...register('autoLogin')} />
           자동 로그인
