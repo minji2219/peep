@@ -4,10 +4,14 @@ import {createRoot} from 'react-dom/client';
 import './index.css';
 import App from './App.tsx';
 import {Router} from '@routes/index';
+import {QueryClientProvider} from '@tanstack/react-query';
+import {queryClient} from 'api/QueryClient/index.ts';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <Router />
-    <App />
+    <QueryClientProvider client={queryClient}>
+      <Router />
+      <App />
+    </QueryClientProvider>
   </StrictMode>
 );
