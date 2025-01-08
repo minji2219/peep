@@ -13,7 +13,7 @@ const Question = () => {
         <RightCharacter />
         <QuestionBox>공통질문</QuestionBox>
       </QuestionWrapper>
-      <Friends />
+      <Friends question="공통질문" />
     </Wrapper>
   );
 };
