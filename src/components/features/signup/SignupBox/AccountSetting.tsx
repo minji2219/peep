@@ -10,7 +10,7 @@ export const AccountSetting = () => {
         아이디 설정
         <Input placeholder="아이디입력" border theme="thin" />
         <ButtonWrapper>
-          <Button onClick={() => {}} bgColor="white" color="black" border={`1px solid ${COMMON.color.lightBlack}`} padding="6px">
+          <Button onClick={() => {}} bgColor="white" color="black" border={COMMON.color.lightBlack} padding="6px">
             중복확인
           </Button>
         </ButtonWrapper>
