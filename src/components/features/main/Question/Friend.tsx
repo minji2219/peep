@@ -1,16 +1,27 @@
 import styled from '@emotion/styled';
 import {COMMON} from '@styles/common';
 import SpeechBubble from '@assets/FollowDetail.png';
+import {Dispatch, SetStateAction} from 'react';
 
 interface Props {
   name: string;
+  profile: string;
+  setPicked: Dispatch<SetStateAction<{name: string; profile: string}>>;
 }
-const Friend = ({name}: Props) => {
+const Friend = ({name, profile, setPicked}: Props) => {
   return (
     <Wrapper>
-      <Checkbox type="radio" name="name" id={name} />
+      <Checkbox
+        type="radio"
+        value={name}
+        name="name"
+        id={name}
+        onChange={(e) => {
+          setPicked({name: e.target.value, profile: profile});
+        }}
+      />
       <NameTag htmlFor={name}>{name}</NameTag>
-      <Profile>
+      <Profile profile={profile}>
         <ProfileDetail>
           1학년 3반
           <FollowBtn>팔로우</FollowBtn>
@@ -77,12 +88,12 @@ const FollowBtn = styled.div`
   cursor: pointer;
 `;
 
-const Profile = styled.div`
+const Profile = styled.div<Pick<Props, 'profile'>>`
   width: 100px;
   height: 100px;
   border-radius: 50%;
   box-shadow:${COMMON.boxShadow.primary}
-  background-image: url('https://dthezntil550i.cloudfront.net/ps/latest/ps2201272314365330022817814/1280_960/56cf6ec5-7084-48e1-a543-79b1d5908eab.png');
+  background-image: url(${({profile}) => profile});
   background-size: cover;
   position: absolute;
   top:-50px;
