@@ -6,7 +6,7 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   bgColor?: string;
   color?: string;
-  border?: boolean;
+  border?: string;
   padding?: string;
   onClick: () => void;
 }
@@ -19,11 +19,12 @@ export const Button = ({children, padding = '12px', bgColor = COMMON.color.prima
 };
 
 const Wrapper = styled.button<Pick<Props, 'padding' | 'border' | 'bgColor' | 'color'>>((props) => ({
+  width: '100%',
   backgroundColor: props.bgColor,
   fontSize: '16px',
   color: props.color,
   borderRadius: '30px',
-  border: props.border ? `1px solid ${COMMON.color.lightBlack}` : 'none',
+  border: props.border || 'none',
   padding: props.padding,
   whiteSpace: 'nowrap',
 }));

@@ -16,14 +16,14 @@ export const IdentifyVerification = () => {
 
       <Container>
         <Input placeholder="전화번호" border theme="thin" />
-        <Button onClick={() => {}} border bgColor="white" color="black" padding="6px 14px">
+        <Button onClick={() => {}} border={`1px solid ${COMMON.color.lightBlack}`} bgColor="white" color="black" padding="6px 14px">
           전송
         </Button>
       </Container>
 
       <Container>
         <Input placeholder="인증번호" border theme="thin" />
-        <Button onClick={() => {}} border bgColor="white" color="black" padding="6px 14px">
+        <Button onClick={() => {}} border={`1px solid ${COMMON.color.lightBlack}`} bgColor="white" color="black" padding="6px 14px">
           인증
         </Button>
       </Container>
