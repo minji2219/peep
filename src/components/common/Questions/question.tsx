@@ -3,16 +3,22 @@ import {COMMON} from '@styles/common';
 import Arrow from '@assets/RightArrow.png';
 import {useSearchParams} from 'react-router-dom';
 
-const Question = () => {
+interface Props {
+  question: string;
+  isPick?: boolean;
+}
+const Question = ({question, isPick}: Props) => {
   const [, setSearchParams] = useSearchParams();
 
   return (
     <Wrapper>
-      무작위질문
-      <PickArrow onClick={() => setSearchParams({question: '111'})}>
-        <div>Pick!</div>
-        <img src={Arrow} alt="화살표" />
-      </PickArrow>
+      {question}
+      {isPick && (
+        <PickArrow onClick={() => setSearchParams({question: '111'})}>
+          <div>Pick!</div>
+          <img src={Arrow} alt="화살표" />
+        </PickArrow>
+      )}
     </Wrapper>
   );
 };
@@ -23,7 +29,6 @@ const PickArrow = styled.div`
   display: flex;
   gap: 10px;
   align-items: center;
-  font-size: 24px;
   position: absolute;
   cursor: pointer;
   bottom: 20px;
@@ -35,6 +40,7 @@ const PickArrow = styled.div`
 `;
 
 const Wrapper = styled.div`
+  font-size: 24px;
   width: 100%;
   padding: 40px;
   border-radius: 30px 30px 30px 10px;
@@ -42,7 +48,7 @@ const Wrapper = styled.div`
   box-shadow: ${COMMON.boxShadow.primary}
   position: relative;
   color: ${COMMON.color.grayFont};
-
+  
   &:hover {
     ${PickArrow} {
       visibility: visible;
