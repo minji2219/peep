@@ -24,7 +24,7 @@ const Wrapper = styled.button<Pick<Props, 'padding' | 'border' | 'bgColor' | 'co
   fontSize: '16px',
   color: props.color,
   borderRadius: '30px',
-  border: props.border || 'none',
+  border: props.border ? `1px solid ${props.border}` : 'none',
   padding: props.padding,
   whiteSpace: 'nowrap',
 }));
