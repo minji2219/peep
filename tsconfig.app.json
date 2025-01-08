@@ -28,7 +28,7 @@
       "@pages/*": ["pages/*"],
       "@components/*": ["components/*"],
       "@styles/*": ["styles/*"],
-      "@types/*": ["types/*"],
+      "@type/*": ["type/*"],
       "@utils/*": ["utils/*"],
       "@routes/*": ["routes/*"],
       "@assets/*": ["assets/*"]

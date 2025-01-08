@@ -1,11 +1,12 @@
 import CommonQuestion from '@components/features/main/CommonQuestion';
-import Questions from '@components/features/main/Questions';
-import Question from '@components/features/main/Question';
+import Questions from '@components/common/Questions';
+import Question from '@components/features/main/QuestionDetail';
 import styled from '@emotion/styled';
 import {COMMON} from '@styles/common';
 import {BackgroundMode} from 'provider/BackgroundMode';
 import {useContext, useEffect} from 'react';
 import {useSearchParams} from 'react-router-dom';
+import {questions} from './mockdata';
 
 const Main = () => {
   const [searchParams] = useSearchParams();
@@ -30,7 +31,7 @@ const Main = () => {
             <Line />이 질문들도 Pick해 보세요!
             <Line />
           </Descript>
-          <Questions />
+          <Questions questions={questions} isPick />
         </div>
       )}
     </Wrapper>
