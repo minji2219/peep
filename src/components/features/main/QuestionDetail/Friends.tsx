@@ -69,6 +69,7 @@ const Wrapper = styled.div`
   gap: 20px;
 `;
 
+// TODO: 반응형으로 만들기
 const Cotainer = styled.div`
   display: flex;
   justify-content: space-between;

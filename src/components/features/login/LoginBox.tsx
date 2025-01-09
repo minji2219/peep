@@ -14,29 +14,39 @@ interface FormValues {
   password: string;
   autoLogin?: boolean;
 }
+interface LoginValues extends FormValues {
+  uuid: string;
+  userAgent: string;
+}
 export const LoginBox = () => {
   const navigate = useNavigate();
   const {register, handleSubmit} = useForm<FormValues>();
-  const uuid = new DeviceUUID().get();
-  const userAgent = navigator.userAgent;
 
   const {mutate} = useMutation({
-    mutationFn: async (data: FormValues) =>
+    mutationFn: async (data: LoginValues) =>
       await fetchInstance.post('/auth/login', {
         body: {
           userId: data.id,
           userPassword: data.password,
         },
         headers: {
-          'Device-Id': uuid,
-          'User-Agent': userAgent,
+          'Device-Id': data.uuid,
+          'User-Agent': data.userAgent,
         },
       }),
   });
 
   const getLogin: SubmitHandler<FormValues> = (data) => {
-    // TODO: error 캐치하는 방법 찾아보기
-    mutate(data);
+    // TODO: 로그인 실패시 에러 캐치하는 방법 찾아보기
+    try {
+      //uuid를 못 가져왔을 때 error캐치
+      const uuid = new DeviceUUID().get();
+      const userAgent = navigator.userAgent;
+      mutate({...data, uuid: uuid, userAgent: userAgent});
+    } catch (err) {
+      console.log(err);
+    }
+
     console.log(data);
   };
 
