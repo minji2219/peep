@@ -56,6 +56,9 @@ const QuestionList = () => {
           <Questions questions={questions[1].map((question) => question.question)} handleQuestionClick={() => setIsOpen(true)} />
         </div>
       ))}
+      <ReactModal isOpen={isOpen} onRequestClose={() => setIsOpen(false)} style={pickConfirm}>
+        <Modal />
+      </ReactModal>
     </Wrapper>
   );
 };
@@ -76,8 +79,6 @@ const Title = styled.div`
   font-size: 50px;
   font-weight: bold;
 `;
-
-const Filter = styled.select``;
 
 const ReceiveDate = styled.div`
   font-size: 40px;

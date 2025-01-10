@@ -4,12 +4,13 @@ import RandomQuestion from './question';
 interface Props {
   questions: string[];
   isPick?: boolean;
+  handleQuestionClick?: () => void;
 }
-const Questions = ({questions, isPick}: Props) => {
+const Questions = ({questions, handleQuestionClick, isPick}: Props) => {
   return (
     <Cotainer>
       {questions.map((question) => (
-        <RandomQuestion question={question} isPick={isPick} />
+        <RandomQuestion question={question} isPick={isPick} handleQuestionClick={handleQuestionClick} />
       ))}
     </Cotainer>
   );

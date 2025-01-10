@@ -6,12 +6,13 @@ import {useSearchParams} from 'react-router-dom';
 interface Props {
   question: string;
   isPick?: boolean;
+  handleQuestionClick?: () => void;
 }
-const Question = ({question, isPick}: Props) => {
+const Question = ({question, isPick, handleQuestionClick}: Props) => {
   const [, setSearchParams] = useSearchParams();
 
   return (
-    <Wrapper>
+    <Wrapper isPick={isPick} onClick={() => isPick || handleQuestionClick?.()}>
       {question}
       {isPick && (
         <PickArrow onClick={() => setSearchParams({question: '111'})}>
@@ -39,7 +40,7 @@ const PickArrow = styled.div`
   }
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<Pick<Props, 'isPick'>>`
   font-size: 24px;
   width: 100%;
   padding: 40px;
@@ -48,7 +49,8 @@ const Wrapper = styled.div`
   box-shadow: ${COMMON.boxShadow.primary}
   position: relative;
   color: ${COMMON.color.grayFont};
-  
+  ${(props) => props.isPick || 'cursor:pointer;'}
+
   &:hover {
     ${PickArrow} {
       visibility: visible;
