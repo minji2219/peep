@@ -27,7 +27,8 @@ body {
 }
 
 button,
-input {
+input,
+select {
   font-family: 'Pretendard-Regular';
   letter-spacing: -0.05em;
 }

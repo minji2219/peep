@@ -3,7 +3,11 @@ import questions from './mockdata';
 import {Question} from '@type/question';
 import {COMMON} from '@styles/common';
 import Questions from '@components/common/Questions';
-
+import Filter from '@components/features/problems/Filter';
+import {useEffect, useMemo, useState} from 'react';
+import ReactModal from 'react-modal';
+import Modal from '@components/features/problems/Modal';
+import {pickConfirm} from '@styles/modal';
 const QuestionList = () => {
   const groupQuestionsByDate = (questions: Question[]) => {
     const groupedQuestions = questions.reduce<Record<string, Question[]>>((acc, question) => {
@@ -17,19 +21,39 @@ const QuestionList = () => {
 
     return Object.fromEntries(Object.entries(groupedQuestions).sort(([dateA], [dateB]) => new Date(dateB).getTime() - new Date(dateA).getTime()));
   };
+  const groupedQuestions = useMemo(() => groupQuestionsByDate(questions), [questions]);
+  const [filteredQuestions, setFilteredQuestions] = useState(groupedQuestions);
+  const [filter, setFilter] = useState('all');
+  const [isOpen, setIsOpen] = useState(false);
+  useEffect(() => {
+    const filtered = Object.fromEntries(
+      Object.entries(groupedQuestions).map(([key, value]) => {
+        if (filter === 'hint') {
+          return [key, value.filter((item) => item.isHint === true)];
+        }
+        if (filter === 'male') {
+          return [key, value.filter((item) => item.sex === 'male')];
+        }
+        if (filter === 'female') {
+          return [key, value.filter((item) => item.sex === 'female')];
+        }
+        return [key, value];
+      })
+    );
+    setFilteredQuestions(filtered);
+  }, [filter]);
 
-  const groupedQuestions = groupQuestionsByDate(questions);
   return (
     <Wrapper>
       <TopWrapper>
         <Title>내가 받은 질문들이에요.</Title>
-        <Filter></Filter>
+        <Filter setFilter={setFilter} />
       </TopWrapper>
       {/* TODO: map key 추가 */}
-      {Object.entries(groupedQuestions).map((questions) => (
+      {Object.entries(filteredQuestions).map((questions) => (
         <div>
-          <ReceiveDate>{questions[0]}</ReceiveDate>
-          <Questions questions={questions[1].map((question) => question.question)} />
+          {questions[1].length > 0 && <ReceiveDate>{questions[0]}</ReceiveDate>}
+          <Questions questions={questions[1].map((question) => question.question)} handleQuestionClick={() => setIsOpen(true)} />
         </div>
       ))}
     </Wrapper>
