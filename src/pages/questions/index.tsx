@@ -3,11 +3,12 @@ import questions from './mockdata';
 import {Question} from '@type/question';
 import {COMMON} from '@styles/common';
 import Questions from '@components/common/Questions';
-import Filter from '@components/features/problems/Filter';
+import Filter from '@components/features/questions/Filter';
 import {useEffect, useMemo, useState} from 'react';
 import ReactModal from 'react-modal';
-import Modal from '@components/features/problems/Modal';
-import {pickConfirm} from '@styles/modal';
+import Modal from '@components/features/questions/Modal';
+import {receiveQuestion} from '@styles/modal';
+
 const QuestionList = () => {
   const groupQuestionsByDate = (questions: Question[]) => {
     const groupedQuestions = questions.reduce<Record<string, Question[]>>((acc, question) => {
@@ -25,6 +26,9 @@ const QuestionList = () => {
   const [filteredQuestions, setFilteredQuestions] = useState(groupedQuestions);
   const [filter, setFilter] = useState('all');
   const [isOpen, setIsOpen] = useState(false);
+  const [filteredQuestionArr, setFilteredQuestionArr] = useState<Question[]>();
+  const [selectedIndex, setSelectedIndex] = useState<number>(0);
+
   useEffect(() => {
     const filtered = Object.fromEntries(
       Object.entries(groupedQuestions).map(([key, value]) => {
@@ -40,8 +44,17 @@ const QuestionList = () => {
         return [key, value];
       })
     );
+    const filteredArr = Object.values(filtered).flatMap((arr) => arr);
+    setFilteredQuestionArr(filteredArr);
     setFilteredQuestions(filtered);
   }, [filter]);
+
+  const handleQuestionClick = (question: Question) => {
+    //처음 클릭된 질문의 index 찾기
+    const index = filteredQuestionArr?.findIndex((q) => q.date === question.date && q.question === question.question) ?? 0;
+    setSelectedIndex(index);
+    setIsOpen(true);
+  };
 
   return (
     <Wrapper>
@@ -53,11 +66,17 @@ const QuestionList = () => {
       {Object.entries(filteredQuestions).map((questions) => (
         <div>
           {questions[1].length > 0 && <ReceiveDate>{questions[0]}</ReceiveDate>}
-          <Questions questions={questions[1].map((question) => question.question)} handleQuestionClick={() => setIsOpen(true)} />
+          <Questions questions={questions[1]} handleQuestionClick={handleQuestionClick} />
         </div>
       ))}
-      <ReactModal isOpen={isOpen} onRequestClose={() => setIsOpen(false)} style={pickConfirm}>
-        <Modal />
+      <ReactModal isOpen={isOpen} onRequestClose={() => setIsOpen(false)} style={receiveQuestion}>
+        <Modal
+          onRequestClose={() => setIsOpen(false)}
+          selectedQuestion={filteredQuestionArr && filteredQuestionArr[selectedIndex]}
+          setSelectedIndex={setSelectedIndex}
+          currentIndex={selectedIndex}
+          arrLength={filteredQuestionArr?.length || 0}
+        />
       </ReactModal>
     </Wrapper>
   );

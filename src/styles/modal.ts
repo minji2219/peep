@@ -1,3 +1,4 @@
+import ReactModal from 'react-modal';
 import {COMMON} from './common';
 
 export const pickConfirm: ReactModal.Styles = {
@@ -14,5 +15,21 @@ export const pickConfirm: ReactModal.Styles = {
     borderRadius: '30px',
     padding: '40px 30px',
     backgroundColor: COMMON.color.lightBackgroundColor,
+  },
+};
+
+export const receiveQuestion: ReactModal.Styles = {
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, 0.9)',
+  },
+  content: {
+    width: '1000px',
+    height: '700px',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    backgroundColor: 'transparent',
+    border: 'none',
   },
 };

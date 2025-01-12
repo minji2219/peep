@@ -2,18 +2,19 @@ import styled from '@emotion/styled';
 import {COMMON} from '@styles/common';
 import Arrow from '@assets/RightArrow.png';
 import {useSearchParams} from 'react-router-dom';
+import {Question} from '@type/question';
 
 interface Props {
-  question: string;
+  question: Question | string;
   isPick?: boolean;
-  handleQuestionClick?: () => void;
+  handleQuestionClick?: (q: Question) => void;
 }
-const Question = ({question, isPick, handleQuestionClick}: Props) => {
+const RandomQuestion = ({question, isPick, handleQuestionClick}: Props) => {
   const [, setSearchParams] = useSearchParams();
 
   return (
-    <Wrapper isPick={isPick} onClick={() => isPick || handleQuestionClick?.()}>
-      {question}
+    <Wrapper isPick={isPick} onClick={() => isPick || handleQuestionClick?.(question as Question)}>
+      {(question as Question).question ?? question}
       {isPick && (
         <PickArrow onClick={() => setSearchParams({question: '111'})}>
           <div>Pick!</div>
@@ -24,7 +25,7 @@ const Question = ({question, isPick, handleQuestionClick}: Props) => {
   );
 };
 
-export default Question;
+export default RandomQuestion;
 
 const PickArrow = styled.div`
   display: flex;

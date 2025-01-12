@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
 import RandomQuestion from './question';
+import {Question} from '@type/question';
 
 interface Props {
-  questions: string[];
+  questions: Question[] | string[];
   isPick?: boolean;
-  handleQuestionClick?: () => void;
+  handleQuestionClick?: (q: Question) => void;
 }
 const Questions = ({questions, handleQuestionClick, isPick}: Props) => {
   return (
