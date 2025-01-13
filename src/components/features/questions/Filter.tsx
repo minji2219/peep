@@ -20,7 +20,9 @@ const Filter = ({setFilter}: Props) => {
       }}
     >
       {OPTIONS.map((option) => (
-        <option value={option.value}>{option.string}</option>
+        <option value={option.value} key={option.value}>
+          {option.string}
+        </option>
       ))}
     </Wrapper>
   );

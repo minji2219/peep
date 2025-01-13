@@ -25,7 +25,7 @@ export const LoginBox = () => {
   const {mutate} = useMutation({
     mutationFn: async (data: LoginValues) =>
       await fetchInstance.post('/auth/login', {
-        body: {
+        data: {
           userId: data.id,
           userPassword: data.password,
         },

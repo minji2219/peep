@@ -11,7 +11,7 @@ const Questions = ({questions, handleQuestionClick, isPick}: Props) => {
   return (
     <Cotainer>
       {questions.map((question) => (
-        <RandomQuestion question={question} isPick={isPick} handleQuestionClick={handleQuestionClick} />
+        <RandomQuestion key={(question as Question).key} question={question} isPick={isPick} handleQuestionClick={handleQuestionClick} />
       ))}
     </Cotainer>
   );

@@ -64,7 +64,7 @@ const QuestionList = () => {
       </TopWrapper>
       {/* TODO: map key 추가 */}
       {Object.entries(filteredQuestions).map((questions) => (
-        <div>
+        <div key={questions[0]}>
           {questions[1].length > 0 && <ReceiveDate>{questions[0]}</ReceiveDate>}
           <Questions questions={questions[1]} handleQuestionClick={handleQuestionClick} />
         </div>

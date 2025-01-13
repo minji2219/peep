@@ -2,12 +2,14 @@ import {Question} from 'type/question';
 
 const questions: Question[] = [
   {
+    key: '1',
     date: '24.12.06',
     question: '질문1',
     hint: null,
     sex: 'male',
   },
   {
+    key: '2',
     date: '24.12.06',
     question: '질문2',
     hint: [
@@ -32,6 +34,7 @@ const questions: Question[] = [
     sex: 'male',
   },
   {
+    key: '3',
     date: '24.12.06',
     question: '질문3',
     hint: [
@@ -56,18 +59,21 @@ const questions: Question[] = [
     sex: 'female',
   },
   {
+    key: '4',
     date: '24.12.05',
     question: '질문1',
     hint: null,
     sex: 'female',
   },
   {
+    key: '5',
     date: '24.12.05',
     question: '질문2',
     hint: null,
     sex: 'male',
   },
   {
+    key: '6',
     date: '24.12.04',
     question: '질문1',
     hint: null,

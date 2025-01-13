@@ -3,6 +3,7 @@ export interface Hint {
   hint: string;
 }
 export interface Question {
+  key: string;
   date: string;
   question: string;
   hint: Hint[] | null;

@@ -10,47 +10,59 @@ import {Agree} from '@pages/agree';
 import {NavLayout} from '@components/common/layout/NavLayout';
 import Mypage from '@pages/mypage';
 
-const router = createBrowserRouter([
-  {
-    element: <DefaultLayout />,
-    children: [
-      {
-        path: PATH.agree,
-        element: <Agree />,
-      },
-      {
-        path: PATH.signup,
-        element: <Signup />,
-      },
-      {
-        element: <NavLayout />,
-        children: [
-          {
-            path: PATH.main,
-            element: <Main />,
-          },
-          {
-            path: PATH.questions,
-            element: <Questions />,
-          },
-          {
-            path: PATH.friends,
-            element: <Friends />,
-          },
-          {
-            path: PATH.mypage,
-            element: <Mypage />,
-          },
-        ],
-      },
-    ],
-  },
-  {
-    path: PATH.login,
-    element: <Login />,
-  },
-]);
+const futureFlags = {
+  v7_startTransition: true,
+  v7_relativeSplatPath: true,
+  v7_fetcherPersist: true,
+  v7_normalizeFormMethod: true,
+  v7_partialHydration: true,
+  v7_skipActionErrorRevalidation: true,
+};
+
+const router = createBrowserRouter(
+  [
+    {
+      element: <DefaultLayout />,
+      children: [
+        {
+          path: PATH.agree,
+          element: <Agree />,
+        },
+        {
+          path: PATH.signup,
+          element: <Signup />,
+        },
+        {
+          element: <NavLayout />,
+          children: [
+            {
+              path: PATH.main,
+              element: <Main />,
+            },
+            {
+              path: PATH.questions,
+              element: <Questions />,
+            },
+            {
+              path: PATH.friends,
+              element: <Friends />,
+            },
+            {
+              path: PATH.mypage,
+              element: <Mypage />,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      path: PATH.login,
+      element: <Login />,
+    },
+  ],
+  {future: futureFlags}
+);
 
 export const Router = () => {
-  return <RouterProvider router={router} />;
+  return <RouterProvider router={router} future={futureFlags} />;
 };
