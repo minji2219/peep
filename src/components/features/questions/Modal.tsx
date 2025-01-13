@@ -7,6 +7,7 @@ import Eyes from '@assets/Eyes.png';
 import {BsChevronLeft} from 'react-icons/bs';
 import {BsChevronRight} from 'react-icons/bs';
 import {Dispatch, SetStateAction} from 'react';
+import HintList from './HintList';
 
 interface Props {
   onRequestClose: () => void;
@@ -36,27 +37,28 @@ const Modal = ({onRequestClose, selectedQuestion, currentIndex, setSelectedIndex
       <Arrow onClick={handleLeftClick}>
         <BsChevronLeft size={20} />
       </Arrow>
-
-      <Wrapper>
-        <CloseBtn onClick={onRequestClose}>
-          <BsX size={40} />
-        </CloseBtn>
-        <Date>{selectedQuestion?.date}</Date>
-        <Title>
-          <Sex>{selectedQuestion?.sex === 'male' ? '남학생' : '여학생'}</Sex>이 보낸 질문
-        </Title>
-        <QuestionBox>
-          <EyesCharcter src={Eyes} width="70" />
-          {selectedQuestion?.question}
-        </QuestionBox>
-        <Badge>
-          누가 날 <span style={{color: COMMON.color.primary}}>PICK</span> 했을까?
-        </Badge>
-        <PeepBtn>50코인으로 PEEP하기</PeepBtn>
-        <MyCoin>내 코인 : 2000코인</MyCoin>
-        <MainCharacter src={MainCharacterPupple} width="180" />
-      </Wrapper>
-
+      <Container>
+        <Wrapper>
+          <CloseBtn onClick={onRequestClose}>
+            <BsX size={40} />
+          </CloseBtn>
+          <Date>{selectedQuestion?.date}</Date>
+          <Title>
+            <Sex>{selectedQuestion?.sex === 'male' ? '남학생' : '여학생'}</Sex>이 보낸 질문
+          </Title>
+          <QuestionBox>
+            <EyesCharacter src={Eyes} width="70" />
+            {selectedQuestion?.question}
+          </QuestionBox>
+          <Badge>
+            누가 날 <span style={{color: COMMON.color.primary}}>PICK</span> 했을까?
+          </Badge>
+          <PeepBtn>50코인으로 PEEP하기</PeepBtn>
+          <MyCoin>내 코인 : 2000코인</MyCoin>
+          <MainCharacter src={MainCharacterPupple} width="180" />
+        </Wrapper>
+        {selectedQuestion?.hint && <HintList sex={selectedQuestion.sex} hints={selectedQuestion.hint} />}
+      </Container>
       <Arrow onClick={handleRightClick}>
         <BsChevronRight size={20} />
       </Arrow>
@@ -78,7 +80,7 @@ const Wrapper = styled.div`
   background-color: ${COMMON.color.darkBackgroundColor};
   color: ${COMMON.color.darkGray};
   border-radius: 30px;
-  width: 850px;
+  width: 800px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -117,7 +119,7 @@ const QuestionBox = styled.div`
   position: relative;
 `;
 
-const EyesCharcter = styled.img`
+const EyesCharacter = styled.img`
   position: absolute;
   right: 80px;
   top: -40px;
@@ -150,6 +152,12 @@ const MainCharacter = styled.img`
   position: absolute;
   left: -80px;
   bottom: 20px;
+`;
+
+const Container = styled.div`
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
 `;
 
 const Arrow = styled.div`

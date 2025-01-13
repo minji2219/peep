@@ -4,37 +4,73 @@ const questions: Question[] = [
   {
     date: '24.12.06',
     question: '질문1',
-    isHint: false,
+    hint: null,
     sex: 'male',
   },
   {
     date: '24.12.06',
     question: '질문2',
-    isHint: true,
+    hint: [
+      {
+        category: 'personality',
+        hint: '발랄',
+      },
+      {
+        category: 'grade',
+        hint: '3',
+      },
+      {
+        category: 'class',
+        hint: '1',
+      },
+      {
+        category: 'hobby',
+        hint: '노래방가기',
+      },
+      {category: 'name', hint: 'ㄱ'},
+    ],
     sex: 'male',
   },
   {
     date: '24.12.06',
     question: '질문3',
-    isHint: true,
+    hint: [
+      {
+        category: 'personality',
+        hint: '유쾌',
+      },
+      {
+        category: 'grade',
+        hint: '2',
+      },
+      {
+        category: 'class',
+        hint: '1',
+      },
+      {
+        category: 'hobby',
+        hint: '축구',
+      },
+      {category: 'name', hint: 'ㅅ'},
+    ],
     sex: 'female',
   },
   {
     date: '24.12.05',
     question: '질문1',
-    isHint: false,
+    hint: null,
     sex: 'female',
   },
   {
     date: '24.12.05',
     question: '질문2',
-    isHint: false,
+    hint: null,
     sex: 'male',
   },
   {
     date: '24.12.04',
     question: '질문1',
-    isHint: false,
+    hint: null,
     sex: 'male',
   },
 ];

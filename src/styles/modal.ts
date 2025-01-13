@@ -23,8 +23,8 @@ export const receiveQuestion: ReactModal.Styles = {
     backgroundColor: 'rgba(0, 0, 0, 0.9)',
   },
   content: {
-    width: '1000px',
-    height: '700px',
+    minWidth: '1300px',
+    height: '750px',
     position: 'absolute',
     top: '50%',
     left: '50%',

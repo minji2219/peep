@@ -33,7 +33,7 @@ const QuestionList = () => {
     const filtered = Object.fromEntries(
       Object.entries(groupedQuestions).map(([key, value]) => {
         if (filter === 'hint') {
-          return [key, value.filter((item) => item.isHint === true)];
+          return [key, value.filter((item) => item.hint !== null)];
         }
         if (filter === 'male') {
           return [key, value.filter((item) => item.sex === 'male')];
