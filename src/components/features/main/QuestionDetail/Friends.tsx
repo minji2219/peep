@@ -11,17 +11,17 @@ import {Button} from '@components/common/Button';
 interface Props {
   question: string;
 }
+const friends = [
+  {name: '서민지', profile: 'https://dthezntil550i.cloudfront.net/ps/latest/ps2201272314365330022817814/1280_960/56cf6ec5-7084-48e1-a543-79b1d5908eab.png'},
+  {name: '신지훈', profile: 'https://dthezntil550i.cloudfront.net/ps/latest/ps2201272314365330022817814/1280_960/56cf6ec5-7084-48e1-a543-79b1d5908eab.png'},
+  {name: '박인서', profile: 'https://dthezntil550i.cloudfront.net/ps/latest/ps2201272314365330022817814/1280_960/56cf6ec5-7084-48e1-a543-79b1d5908eab.png'},
+  {
+    name: '유수민',
+    profile: 'https://search.pstatic.net/common/?src=http%3A%2F%2Fcafefiles.naver.net%2F20150816_146%2Fanimalnav_1439729019064A9Dqm_JPEG%2FScreenshot_2015-07-12-12-24-13_edit_edit.jpg&type=sc960_832',
+  },
+];
+
 const Friends = ({question}: Props) => {
-  const friends = [
-    {name: '서민지', profile: 'https://dthezntil550i.cloudfront.net/ps/latest/ps2201272314365330022817814/1280_960/56cf6ec5-7084-48e1-a543-79b1d5908eab.png'},
-    {name: '신지훈', profile: 'https://dthezntil550i.cloudfront.net/ps/latest/ps2201272314365330022817814/1280_960/56cf6ec5-7084-48e1-a543-79b1d5908eab.png'},
-    {name: '박인서', profile: 'https://dthezntil550i.cloudfront.net/ps/latest/ps2201272314365330022817814/1280_960/56cf6ec5-7084-48e1-a543-79b1d5908eab.png'},
-    {
-      name: '유수민',
-      profile:
-        'https://search.pstatic.net/common/?src=http%3A%2F%2Fcafefiles.naver.net%2F20150816_146%2Fanimalnav_1439729019064A9Dqm_JPEG%2FScreenshot_2015-07-12-12-24-13_edit_edit.jpg&type=sc960_832',
-    },
-  ];
   const [isOpen, setIsOpen] = useState(false);
   const [picked, setPicked] = useState({
     name: '',

@@ -38,8 +38,8 @@ const Wrapper = styled.div`
 
 const NameTag = styled.label`
   position: relative;
-  width: 220px;
-  height: 160px;
+  width: 180px;
+  height: 140px;
   background-color: ${COMMON.color.darkGray};
   border-radius: 50px;
   color: white;
@@ -89,8 +89,8 @@ const FollowBtn = styled.div`
 `;
 
 const Profile = styled.div<Pick<Props, 'profile'>>`
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
   box-shadow:${COMMON.boxShadow.primary}
   background-image: url(${({profile}) => profile});

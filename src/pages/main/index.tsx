@@ -3,22 +3,12 @@ import Questions from '@components/common/Questions';
 import Question from '@components/features/main/QuestionDetail';
 import styled from '@emotion/styled';
 import {COMMON} from '@styles/common';
-import {BackgroundMode} from 'provider/BackgroundMode';
-import {useContext, useEffect} from 'react';
 import {useSearchParams} from 'react-router-dom';
 import {questions} from './mockdata';
 
 const Main = () => {
   const [searchParams] = useSearchParams();
-  const {setBackgroundColor} = useContext(BackgroundMode);
   const isQuestion = searchParams.get('question');
-
-  useEffect(() => {
-    if (isQuestion) {
-      setBackgroundColor(COMMON.color.grayFont);
-    }
-    return () => setBackgroundColor(COMMON.color.lightBackgroundColor);
-  }, [isQuestion]);
 
   return (
     <Wrapper>

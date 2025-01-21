@@ -1,6 +1,6 @@
 export const COMMON = {
   width: {
-    fullWidth: '1272px',
+    fullWidth: '1100px',
   },
   color: {
     primary: '#9D54F4',
