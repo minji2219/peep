@@ -33,3 +33,19 @@ export const receiveQuestion: ReactModal.Styles = {
     border: 'none',
   },
 };
+
+export const friendList: ReactModal.Styles = {
+  overlay: {
+    backgroundColor: ' rgba(0, 0, 0, 0.4)',
+  },
+  content: {
+    minWidth: '1300px',
+    height: '750px',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    backgroundColor: 'transparent',
+    border: 'none',
+  },
+};
