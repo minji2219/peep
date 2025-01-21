@@ -24,16 +24,19 @@ export const LoginBox = () => {
 
   const {mutate} = useMutation({
     mutationFn: async (data: LoginValues) =>
-      await fetchInstance.post('/auth/login', {
-        data: {
+      await fetchInstance.post(
+        '/auth/login',
+        {
           userId: data.id,
           userPassword: data.password,
         },
-        headers: {
-          'Device-Id': data.uuid,
-          'User-Agent': data.userAgent,
-        },
-      }),
+        {
+          headers: {
+            'Device-Id': data.uuid,
+            'User-Agent': data.userAgent,
+          },
+        }
+      ),
   });
 
   const getLogin: SubmitHandler<FormValues> = (data) => {

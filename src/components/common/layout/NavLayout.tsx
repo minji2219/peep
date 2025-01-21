@@ -1,10 +1,10 @@
 import {Outlet, useSearchParams} from 'react-router-dom';
 import {LightBox} from './LightBox';
 import {NavigationBar} from './NavigationBar';
-import Friends from './Friends';
 import styled from '@emotion/styled';
 import Notification from './Notification';
 import {COMMON} from '@styles/common';
+import Friends from '@components/features/friends';
 
 export const NavLayout = () => {
   const [searchParams] = useSearchParams();
