@@ -9,6 +9,7 @@ import {DefaultLayout} from '@components/common/layout';
 import {Agree} from '@pages/agree';
 import {NavLayout} from '@components/common/layout/NavLayout';
 import Mypage from '@pages/mypage';
+import {ProtectedRoute} from './ProtectedRoute';
 
 const futureFlags = {
   v7_startTransition: true,
@@ -33,7 +34,11 @@ const router = createBrowserRouter(
           element: <Signup />,
         },
         {
-          element: <NavLayout />,
+          element: (
+            <ProtectedRoute>
+              <NavLayout />
+            </ProtectedRoute>
+          ),
           children: [
             {
               path: PATH.main,
