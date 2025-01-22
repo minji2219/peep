@@ -5,14 +5,8 @@ import {useState} from 'react';
 import {BsPlus} from 'react-icons/bs';
 import ReactModal from 'react-modal';
 import Modal from './Modal';
-const friends = [
-  {name: '서민지', profile: 'https://dthezntil550i.cloudfront.net/ps/latest/ps2201272314365330022817814/1280_960/56cf6ec5-7084-48e1-a543-79b1d5908eab.png'},
-  {name: '신지훈', profile: 'https://dthezntil550i.cloudfront.net/ps/latest/ps2201272314365330022817814/1280_960/56cf6ec5-7084-48e1-a543-79b1d5908eab.png'},
-  {
-    name: '유수민',
-    profile: 'https://search.pstatic.net/common/?src=http%3A%2F%2Fcafefiles.naver.net%2F20150816_146%2Fanimalnav_1439729019064A9Dqm_JPEG%2FScreenshot_2015-07-12-12-24-13_edit_edit.jpg&type=sc960_832',
-  },
-];
+import {friends} from './mockdata';
+
 const Friends = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -20,7 +14,7 @@ const Friends = () => {
     <Wrapper>
       <Title>친구</Title>
       <FriendList>
-        {friends.map((friend) => (
+        {friends.slice(0, 3).map((friend) => (
           <Profile image={friend.profile} />
         ))}
         <Plus onClick={() => setIsOpen(true)}>
@@ -28,7 +22,7 @@ const Friends = () => {
         </Plus>
       </FriendList>
       <ReactModal isOpen={isOpen} onRequestClose={() => setIsOpen(false)} style={friendList}>
-        <Modal />
+        <Modal onRequestClose={() => setIsOpen(false)} />
       </ReactModal>
     </Wrapper>
   );
