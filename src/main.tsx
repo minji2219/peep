@@ -7,12 +7,15 @@ import {Router} from '@routes/index';
 import {QueryClientProvider} from '@tanstack/react-query';
 import {queryClient} from 'api/QueryClient/index.ts';
 import Modal from 'react-modal';
+import {AuthProvider} from 'provider/Auth.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <Router />
-      <App />
+      <AuthProvider>
+        <Router />
+        <App />
+      </AuthProvider>
     </QueryClientProvider>
   </StrictMode>
 );
