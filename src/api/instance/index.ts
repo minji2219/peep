@@ -11,7 +11,8 @@ const initInstance = (config: AxiosRequestConfig): AxiosInstance => {
   });
   return instance;
 };
-
+// https://e6f4-125-136-11-232.ngrok-free.app/
+// https://port-0-peep-qxz2eltwz9onl.sel5.cloudtype.app/
 const BASE_URL = 'https://port-0-peep-qxz2eltwz9onl.sel5.cloudtype.app/';
 
 export const fetchInstance = initInstance({

@@ -1,14 +1,56 @@
 import styled from '@emotion/styled';
 import {PATH} from '@routes/path';
 import {COMMON} from '@styles/common';
+import {useMutation} from '@tanstack/react-query';
+import {fetchInstance} from 'api/instance';
 import {useLocation, useNavigate} from 'react-router-dom';
+import {DeviceUUID} from 'device-uuid';
+import {useAuth} from 'provider/Auth';
 
 export const NavigationBar = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const authInfo = useAuth();
+
+  const {mutate} = useMutation({
+    mutationFn: async (data: string) =>
+      await fetchInstance.post(
+        '/auth/logout',
+        {
+          accessToken: authInfo?.accessToken,
+          refreshToken: authInfo?.refreshToken,
+          id: authInfo?.userId,
+        },
+        {
+          headers: {
+            Authorization: 'Bearer ' + authInfo?.accessToken,
+            'Device-Id': data,
+          },
+        }
+      ),
+    onSuccess: () => {
+      localStorage.setItem('accessToken', '');
+      localStorage.setItem('refreshToken', '');
+      localStorage.setItem('userId', '');
+      navigate(PATH.login);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
+  const logout = () => {
+    try {
+      //uuid를 못 가져왔을 때 error캐치
+      const uuid = new DeviceUUID().get();
+      mutate(uuid);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <Wrapper>
-      <LoginState onClick={() => navigate(PATH.login)}>로그인</LoginState>
+      <LoginState onClick={logout}>로그아웃</LoginState>
 
       <MenuList>
         <Menu onClick={() => navigate(PATH.questions)} presentPage={location.pathname === PATH.questions}>

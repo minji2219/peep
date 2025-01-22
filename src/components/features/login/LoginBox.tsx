@@ -16,7 +16,6 @@ interface FormValues {
 }
 interface LoginValues extends FormValues {
   uuid: string;
-  userAgent: string;
 }
 export const LoginBox = () => {
   const navigate = useNavigate();
@@ -33,24 +32,30 @@ export const LoginBox = () => {
         {
           headers: {
             'Device-Id': data.uuid,
-            'User-Agent': data.userAgent,
           },
         }
       ),
+    onSuccess: (response) => {
+      localStorage.setItem('accessToken', response.data.accessToken);
+      localStorage.setItem('refreshToken', response.data.refreshToken);
+      localStorage.setItem('userId', response.data.id);
+      navigate(PATH.main);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
   });
 
-  const getLogin: SubmitHandler<FormValues> = (data) => {
+  const getLogin: SubmitHandler<FormValues> = (postData) => {
     // TODO: 로그인 실패시 에러 캐치하는 방법 찾아보기
     try {
       //uuid를 못 가져왔을 때 error캐치
       const uuid = new DeviceUUID().get();
-      const userAgent = navigator.userAgent;
-      mutate({...data, uuid: uuid, userAgent: userAgent});
+      mutate({...postData, uuid: uuid});
+      navigate(PATH.main);
     } catch (err) {
       console.log(err);
     }
-
-    console.log(data);
   };
 
   return (
