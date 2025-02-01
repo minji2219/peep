@@ -54,6 +54,9 @@ export const LoginBox = () => {
       navigate(PATH.main);
     } catch (err) {
       console.log(err);
+      //TODO: test를 위해 uuid 없이도 로그인 시도 수정 필요
+      mutate({...postData, uuid: '1234'});
+      navigate(PATH.main);
     }
   };
 
