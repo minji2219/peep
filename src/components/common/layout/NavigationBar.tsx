@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import {PATH} from '@routes/path';
 import {COMMON} from '@styles/common';
 import {useMutation} from '@tanstack/react-query';
-import {fetchInstance} from 'api/instance';
+import {fetchAuthInstance} from 'api/instance';
 import {useLocation, useNavigate} from 'react-router-dom';
 import {DeviceUUID} from 'device-uuid';
 import {useAuth} from 'provider/Auth';
@@ -14,7 +14,7 @@ export const NavigationBar = () => {
 
   const {mutate} = useMutation({
     mutationFn: async (data: string) =>
-      await fetchInstance.post(
+      await fetchAuthInstance.post(
         '/auth/logout',
         {
           accessToken: authInfo?.accessToken,

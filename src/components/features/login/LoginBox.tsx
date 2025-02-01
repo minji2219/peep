@@ -47,7 +47,6 @@ export const LoginBox = () => {
   });
 
   const getLogin: SubmitHandler<FormValues> = (postData) => {
-    // TODO: 로그인 실패시 에러 캐치하는 방법 찾아보기
     try {
       //uuid를 못 가져왔을 때 error캐치
       const uuid = new DeviceUUID().get();
