@@ -13,7 +13,7 @@ const initInstance = (config: AxiosRequestConfig): AxiosInstance => {
   return instance;
 };
 const TEST_BASE_URL = `https://26fa-1-249-62-29.ngrok-free.app/`;
-const DEPLOY_BASE_URL = `https://port-0-peep-qxz2eltwz9onl.sel5.cloudtype.app/`;
+// const DEPLOY_BASE_URL = `https://port-0-peep-qxz2eltwz9onl.sel5.cloudtype.app/`;
 const BASE_URL = TEST_BASE_URL;
 
 export const fetchInstance = initInstance({
