@@ -16,10 +16,10 @@ const Follow = ({profile, name, follow}: Props) => {
         <Name>{name}</Name>
       </Profile>
       <Button
-        bgColor={follow ? COMMON.color.lightBackgroundColor : COMMON.color.primary}
+        bgColor={follow ? COMMON.color.lightBackgroundColor : ''}
         color={follow ? COMMON.color.darkGray : 'white'}
         padding="2px 10px"
-        style={{width: '100px', height: '30px'}}
+        style={{width: '100px', height: '30px', background: follow ? '' : `linear-gradient(40deg, ${COMMON.color.darkBackgroundColor}, ${COMMON.color.primary})`}}
         onClick={() => {}}
       >
         {follow ? '팔로잉' : '팔로우'}

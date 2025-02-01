@@ -4,6 +4,7 @@ import {COMMON} from '@styles/common';
 import {useState} from 'react';
 import {BsX} from 'react-icons/bs';
 import FollowList from './FollowList';
+import {Button} from '@components/common/Button';
 
 interface Props {
   onRequestClose: () => void;
@@ -14,34 +15,39 @@ const Modal = ({onRequestClose}: Props) => {
 
   return (
     <Around>
-      <Wrapper>
-        <CloseBtn onClick={onRequestClose}>
-          <BsX size={40} />
-        </CloseBtn>
-        <Title>MY</Title>
-        <Input placeholder="이름으로 찾기" border />
-        <Descript>
-          <Follow active={followerClick}>팔로워</Follow>
-          <Follow active={followingClick}>팔로잉</Follow>
-        </Descript>
-        <FollowListBox>
-          <FollowList
-            active={followerClick}
-            onClick={() => {
-              setFollwerClick(true);
-              setFollowingClick(false);
-            }}
-          />
-          <FollowList
-            active={followingClick}
-            onClick={() => {
-              setFollwerClick(false);
-              setFollowingClick(true);
-            }}
-            position="absolute"
-          />
-        </FollowListBox>
-      </Wrapper>
+      <Container>
+        <Wrapper>
+          <CloseBtn onClick={onRequestClose}>
+            <BsX size={40} />
+          </CloseBtn>
+          <Title>MY</Title>
+          <Input placeholder="이름으로 찾기" border />
+          <Descript>
+            <Follow active={followerClick}>팔로워</Follow>
+            <Follow active={followingClick}>팔로잉</Follow>
+          </Descript>
+          <FollowListBox>
+            <FollowList
+              active={followerClick}
+              onClick={() => {
+                setFollwerClick(true);
+                setFollowingClick(false);
+              }}
+            />
+            <FollowList
+              active={followingClick}
+              onClick={() => {
+                setFollwerClick(false);
+                setFollowingClick(true);
+              }}
+              position="absolute"
+            />
+          </FollowListBox>
+        </Wrapper>
+        <Button onClick={() => {}} style={{width: '180px'}}>
+          추천친구 확인하기
+        </Button>
+      </Container>
     </Around>
   );
 };
@@ -53,6 +59,13 @@ const Around = styled.div`
   align-items: center;
   position: relative;
   gap: 10px;
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
 `;
 
 const Wrapper = styled.div`

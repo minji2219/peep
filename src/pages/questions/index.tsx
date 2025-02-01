@@ -8,8 +8,18 @@ import {useEffect, useMemo, useState} from 'react';
 import ReactModal from 'react-modal';
 import Modal from '@components/features/questions/Modal';
 import {receiveQuestion} from '@styles/modal';
+import {useQuery} from '@tanstack/react-query';
+import {fetchAuthInstance} from 'api/instance';
 
 const QuestionList = () => {
+  useQuery({
+    queryKey: ['questions'],
+    queryFn: async () => {
+      const response = await fetchAuthInstance.get('question/getQuestionList');
+      console.log(response.data);
+    },
+  });
+
   const groupQuestionsByDate = (questions: Question[]) => {
     const groupedQuestions = questions.reduce<Record<string, Question[]>>((acc, question) => {
       const {date} = question;
