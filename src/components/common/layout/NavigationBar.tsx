@@ -10,7 +10,7 @@ import {useAuth} from 'provider/Auth';
 export const NavigationBar = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const authInfo = useAuth();
+  const {authInfo, logout} = useAuth();
 
   const {mutate} = useMutation({
     mutationFn: async (data: string) =>
@@ -29,9 +29,7 @@ export const NavigationBar = () => {
         }
       ),
     onSuccess: () => {
-      localStorage.setItem('accessToken', '');
-      localStorage.setItem('refreshToken', '');
-      localStorage.setItem('userId', '');
+      logout();
       navigate(PATH.login);
     },
     onError: (error) => {
@@ -39,7 +37,7 @@ export const NavigationBar = () => {
     },
   });
 
-  const logout = () => {
+  const getLogout = () => {
     try {
       //uuid를 못 가져왔을 때 error캐치
       const uuid = new DeviceUUID().get();
@@ -50,7 +48,7 @@ export const NavigationBar = () => {
   };
   return (
     <Wrapper>
-      <LoginState onClick={logout}>로그아웃</LoginState>
+      <LoginState onClick={getLogout}>로그아웃</LoginState>
 
       <MenuList>
         <Menu onClick={() => navigate(PATH.questions)} presentPage={location.pathname === PATH.questions}>

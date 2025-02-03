@@ -8,6 +8,7 @@ import {useNavigate} from 'react-router-dom';
 import {DeviceUUID} from 'device-uuid';
 import {useMutation} from '@tanstack/react-query';
 import {fetchInstance} from 'api/instance';
+import {useAuth} from 'provider/Auth';
 
 interface FormValues {
   id: string;
@@ -20,6 +21,7 @@ interface LoginValues extends FormValues {
 export const LoginBox = () => {
   const navigate = useNavigate();
   const {register, handleSubmit} = useForm<FormValues>();
+  const {login} = useAuth();
 
   const {mutate} = useMutation({
     mutationFn: async (data: LoginValues) =>
@@ -36,9 +38,8 @@ export const LoginBox = () => {
         }
       ),
     onSuccess: (response) => {
-      localStorage.setItem('accessToken', response.data.accessToken);
-      localStorage.setItem('refreshToken', response.data.refreshToken);
-      localStorage.setItem('userId', response.data.id);
+      login(response.data.id, response.data.accessToken, response.data.refreshToken);
+
       navigate(PATH.main);
     },
     onError: (error) => {
