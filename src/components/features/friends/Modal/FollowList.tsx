@@ -3,14 +3,15 @@ import {COMMON} from '@styles/common';
 import {friends} from '../mockdata';
 import Follow from './Follow';
 import {BsChevronLeft, BsChevronRight} from 'react-icons/bs';
-import {useEffect, useRef, useState} from 'react';
+import {Dispatch, SetStateAction, useEffect, useRef, useState} from 'react';
 
 interface Props {
   active: boolean;
   position?: string;
   onClick: () => void;
+  setIsDetail: Dispatch<SetStateAction<boolean>>;
 }
-const FollowList = ({active, position = 'relative', onClick}: Props) => {
+const FollowList = ({active, position = 'relative', onClick, setIsDetail}: Props) => {
   const [scrollHeight, setScrollHeight] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -39,14 +40,14 @@ const FollowList = ({active, position = 'relative', onClick}: Props) => {
           return a.follow ? 1 : -1;
         })
         .map((friend) => (
-          <Follow profile={friend.profile} name={friend.name} follow={friend.follow} />
+          <Follow profile={friend.profile} name={friend.name} follow={friend.follow} setIsDetail={setIsDetail} />
         ))}
     </Wrapper>
   );
 };
 export default FollowList;
 
-const Wrapper = styled.div<Props>`
+const Wrapper = styled.div<Omit<Props, 'setIsDetail'>>`
   position: ${(props) => props.position};
   right: 0;
   width: 80%;

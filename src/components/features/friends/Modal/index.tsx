@@ -5,6 +5,7 @@ import {useState} from 'react';
 import {BsX} from 'react-icons/bs';
 import FollowList from './FollowList';
 import {Button} from '@components/common/Button';
+import Detail from './Detail';
 
 interface Props {
   onRequestClose: () => void;
@@ -12,6 +13,7 @@ interface Props {
 const Modal = ({onRequestClose}: Props) => {
   const [followerClick, setFollwerClick] = useState<boolean>(true);
   const [followingClick, setFollowingClick] = useState<boolean>(false);
+  const [isDetail, setIsDetail] = useState(false);
 
   return (
     <Around>
@@ -28,6 +30,7 @@ const Modal = ({onRequestClose}: Props) => {
           </Descript>
           <FollowListBox>
             <FollowList
+              setIsDetail={setIsDetail}
               active={followerClick}
               onClick={() => {
                 setFollwerClick(true);
@@ -35,6 +38,7 @@ const Modal = ({onRequestClose}: Props) => {
               }}
             />
             <FollowList
+              setIsDetail={setIsDetail}
               active={followingClick}
               onClick={() => {
                 setFollwerClick(false);
@@ -48,6 +52,7 @@ const Modal = ({onRequestClose}: Props) => {
           추천친구 확인하기
         </Button>
       </Container>
+      {isDetail && <Detail setIsDetail={setIsDetail} />}
     </Around>
   );
 };

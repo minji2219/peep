@@ -40,7 +40,7 @@ export const friendList: ReactModal.Styles = {
   },
   content: {
     minWidth: '1300px',
-    height: '750px',
+    height: '800px',
     position: 'absolute',
     top: '50%',
     left: '50%',

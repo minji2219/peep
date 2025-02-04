@@ -1,17 +1,19 @@
 import {Button} from '@components/common/Button';
 import styled from '@emotion/styled';
 import {COMMON} from '@styles/common';
+import {Dispatch, SetStateAction} from 'react';
 
 interface Props {
   profile: string;
   name: string;
   follow: boolean; //follow:true =>팔로우 상태, follow:false => 미팔로우 상태
+  setIsDetail: Dispatch<SetStateAction<boolean>>;
 }
 
-const Follow = ({profile, name, follow}: Props) => {
+const Follow = ({profile, name, follow, setIsDetail}: Props) => {
   return (
     <Wrapper>
-      <Profile>
+      <Profile onClick={() => setIsDetail(true)}>
         <ProfileImage profile={profile} />
         <Name>{name}</Name>
       </Profile>
@@ -39,6 +41,7 @@ const Profile = styled.div`
   display: flex;
   gap: 10px;
   align-items: center;
+  cursor: pointer;
 `;
 
 const ProfileImage = styled.div`
