@@ -3,17 +3,24 @@ import styled from '@emotion/styled';
 import {COMMON} from '@styles/common';
 import {useState} from 'react';
 import {BsX} from 'react-icons/bs';
-import FollowList from './FollowList';
 import {Button} from '@components/common/Button';
 import Detail from './Detail';
+import RecommendList from './RecommedList';
+import FollowFollowerList from './FollowFollwerList';
+import SearchList from './SearchList';
 
 interface Props {
   onRequestClose: () => void;
 }
 const Modal = ({onRequestClose}: Props) => {
-  const [followerClick, setFollwerClick] = useState<boolean>(true);
-  const [followingClick, setFollowingClick] = useState<boolean>(false);
   const [isDetail, setIsDetail] = useState(false);
+  const [isRecommend, setIsRecommend] = useState(false);
+  const [input, setInput] = useState<string>();
+
+  const revertMain = () => {
+    setIsRecommend(false);
+    setInput('');
+  };
 
   return (
     <Around>
@@ -23,34 +30,29 @@ const Modal = ({onRequestClose}: Props) => {
             <BsX size={40} />
           </CloseBtn>
           <Title>MY</Title>
-          <Input placeholder="이름으로 찾기" border />
-          <Descript>
-            <Follow active={followerClick}>팔로워</Follow>
-            <Follow active={followingClick}>팔로잉</Follow>
-          </Descript>
-          <FollowListBox>
-            <FollowList
-              setIsDetail={setIsDetail}
-              active={followerClick}
-              onClick={() => {
-                setFollwerClick(true);
-                setFollowingClick(false);
-              }}
-            />
-            <FollowList
-              setIsDetail={setIsDetail}
-              active={followingClick}
-              onClick={() => {
-                setFollwerClick(false);
-                setFollowingClick(true);
-              }}
-              position="absolute"
-            />
-          </FollowListBox>
+          <Input
+            placeholder="이름으로 찾기"
+            border
+            onChange={(e) => {
+              setInput(e.target.value);
+              setIsRecommend(false);
+            }}
+          />
+          {!isRecommend && !input && <FollowFollowerList setIsDetail={setIsDetail} />}
+          {isRecommend && <RecommendList revertMain={revertMain} setIsDetail={setIsDetail} />}
+          {isRecommend || (input && <SearchList setIsDetail={setIsDetail} />)}
         </Wrapper>
-        <Button onClick={() => {}} style={{width: '180px'}}>
-          추천친구 확인하기
-        </Button>
+        {isRecommend || (
+          <Button
+            onClick={() => {
+              setIsRecommend(true);
+              setIsDetail(false);
+            }}
+            style={{width: '180px'}}
+          >
+            추천친구 확인하기
+          </Button>
+        )}
       </Container>
       {isDetail && <Detail setIsDetail={setIsDetail} />}
     </Around>
@@ -61,7 +63,7 @@ export default Modal;
 const Around = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: start;
   position: relative;
   gap: 10px;
 `;
@@ -97,20 +99,4 @@ const CloseBtn = styled.div`
 
 const Title = styled.div`
   color: ${COMMON.color.darkGray};
-`;
-
-const Descript = styled.div`
-  width: 90%;
-  display: flex;
-  justify-content: space-between;
-`;
-
-const Follow = styled.div`
-  color: ${(props: {active: boolean}) => (props.active ? COMMON.color.grayFont : COMMON.color.darkGray)};
-`;
-
-const FollowListBox = styled.div`
-  width: 100%;
-  display: flex;
-  position: relative;
 `;
