@@ -1,25 +1,32 @@
 import styled from '@emotion/styled';
-import RandomQuestion from './question';
-import {Question} from '@type/question';
+import Question from './question';
+import {randomQuestions, selectedQuestion} from '@type/question';
 
 interface Props {
-  questions: Question[] | string[];
+  questions: selectedQuestion[] | randomQuestions[];
   isPick?: boolean;
-  handleQuestionClick?: (q: Question) => void;
+  handleQuestionClick: (key: number) => void;
 }
 const Questions = ({questions, handleQuestionClick, isPick}: Props) => {
+  if (questions.length === 0) return <div></div>;
   return (
-    <Cotainer>
+    <Container>
       {questions.map((question) => (
-        <RandomQuestion key={(question as Question).key} question={question} isPick={isPick} handleQuestionClick={handleQuestionClick} />
+        <Question
+          key={question.id}
+          id={question.id}
+          question={question.questionDto.content}
+          isPick={isPick}
+          handleQuestionClick={handleQuestionClick}
+        />
       ))}
-    </Cotainer>
+    </Container>
   );
 };
 
 export default Questions;
 
-const Cotainer = styled.div`
+const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 24px;

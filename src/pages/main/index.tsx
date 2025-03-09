@@ -4,11 +4,25 @@ import Question from '@components/features/main/QuestionDetail';
 import styled from '@emotion/styled';
 import {COMMON} from '@styles/common';
 import {useSearchParams} from 'react-router-dom';
-import {questions} from './mockdata';
+import {useQuery} from '@tanstack/react-query';
+import {fetchAuthInstance} from 'api/instance';
+import {useState} from 'react';
+import {receivedQuestion} from '@type/question';
 
 const Main = () => {
   const [searchParams] = useSearchParams();
   const isQuestion = searchParams.get('question');
+  const [questionData, setQuestionData] = useState<receivedQuestion>();
+
+  useQuery({
+    queryKey: ['questions'],
+    queryFn: async () => {
+      const response = await fetchAuthInstance.get('question/getQuestionList');
+
+      setQuestionData(response.data);
+      return response.data;
+    },
+  });
 
   return (
     <Wrapper>
@@ -16,12 +30,20 @@ const Main = () => {
         <Question />
       ) : (
         <div>
-          <CommonQuestion />
-          <Descript>
+          <CommonQuestion
+            question={
+              questionData?.commonQuestions[0]?.questionDto?.content || ''
+            }
+          />
+          <Description>
             <Line />이 질문들도 Pick해 보세요!
             <Line />
-          </Descript>
-          <Questions questions={questions} isPick />
+          </Description>
+          <Questions
+            questions={questionData?.randomQuestions || []}
+            isPick
+            handleQuestionClick={() => {}}
+          />
         </div>
       )}
     </Wrapper>
@@ -34,7 +56,7 @@ const Wrapper = styled.div`
   font-size: 20px;
 `;
 
-const Descript = styled.div`
+const Description = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;

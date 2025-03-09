@@ -3,7 +3,7 @@ import {COMMON} from '@styles/common';
 import Bubble from './Bubble';
 import MainCharacter from '@assets/MainCharacterPupple.png';
 
-const CommonQuestion = () => {
+const CommonQuestion = ({question}: {question: string}) => {
   return (
     <Wrapper>
       <Image>
@@ -14,7 +14,7 @@ const CommonQuestion = () => {
           <Title>오늘의 질문!</Title>
           <Timer>00분 00초 뒤 새로운 질문</Timer>
         </TitleWrapper>
-        <Bubble />
+        <Bubble question={question} />
       </BubbleWrapper>
     </Wrapper>
   );

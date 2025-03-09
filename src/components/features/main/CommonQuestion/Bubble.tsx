@@ -2,10 +2,10 @@ import styled from '@emotion/styled';
 import {COMMON} from '@styles/common';
 import Arrow from '@assets/RightArrow.png';
 
-const Bubble = () => {
+const Bubble = ({question}: {question: string}) => {
   return (
     <Wrapper>
-      공통질문
+      {question}
       <PickArrow>
         <div>Pick!</div>
         <img src={Arrow} alt="화살표" />

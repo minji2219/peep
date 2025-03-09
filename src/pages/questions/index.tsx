@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import questions from './mockdata';
-import {Question} from '@type/question';
+import {selectedQuestion} from '@type/question';
 import {COMMON} from '@styles/common';
 import Questions from '@components/common/Questions';
 import Filter from '@components/features/questions/Filter';
@@ -13,16 +13,22 @@ import {fetchAuthInstance} from 'api/instance';
 
 const QuestionList = () => {
   useQuery({
-    queryKey: ['questions'],
+    queryKey: ['selectedQuestion'],
     queryFn: async () => {
-      const response = await fetchAuthInstance.get('question/getQuestionList');
+      const response = await fetchAuthInstance.get(
+        'question/getChosenQuestionList'
+      );
       console.log(response.data);
+      return response.data;
     },
   });
 
-  const groupQuestionsByDate = (questions: Question[]) => {
-    const groupedQuestions = questions.reduce<Record<string, Question[]>>((acc, question) => {
-      const {date} = question;
+  const groupQuestionsByDate = (questions: selectedQuestion[]) => {
+    const groupedQuestions = questions.reduce<
+      Record<string, selectedQuestion[]>
+    >((acc, question) => {
+      const date = question.chosenDate.split('T')[0];
+
       if (!acc[date]) {
         acc[date] = [];
       }
@@ -30,13 +36,26 @@ const QuestionList = () => {
       return acc;
     }, {});
 
-    return Object.fromEntries(Object.entries(groupedQuestions).sort(([dateA], [dateB]) => new Date(dateB).getTime() - new Date(dateA).getTime()));
+    return Object.fromEntries(
+      Object.entries(groupedQuestions).sort(
+        ([dateA], [dateB]) =>
+          new Date(dateB).getTime() - new Date(dateA).getTime()
+      )
+    );
   };
-  const groupedQuestions = useMemo(() => groupQuestionsByDate(questions), [questions]);
+
+  const groupedQuestions = useMemo(
+    () => groupQuestionsByDate(questions),
+    [questions]
+  );
+
+  // 필터링된 질문 중 날짜별로 한번 더 필터링한 질문들
   const [filteredQuestions, setFilteredQuestions] = useState(groupedQuestions);
   const [filter, setFilter] = useState('all');
   const [isOpen, setIsOpen] = useState(false);
-  const [filteredQuestionArr, setFilteredQuestionArr] = useState<Question[]>();
+  // 필터링된 질문들
+  const [filteredQuestionArr, setFilteredQuestionArr] =
+    useState<selectedQuestion[]>();
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
 
   useEffect(() => {
@@ -59,9 +78,10 @@ const QuestionList = () => {
     setFilteredQuestions(filtered);
   }, [filter]);
 
-  const handleQuestionClick = (question: Question) => {
+  const handleQuestionClick = (key: number) => {
     //처음 클릭된 질문의 index 찾기
-    const index = filteredQuestionArr?.findIndex((q) => q.date === question.date && q.question === question.question) ?? 0;
+    const index = filteredQuestionArr?.findIndex((q) => q.id === key) ?? 0;
+
     setSelectedIndex(index);
     setIsOpen(true);
   };
@@ -72,17 +92,26 @@ const QuestionList = () => {
         <Title>내가 받은 질문들이에요.</Title>
         <Filter setFilter={setFilter} />
       </TopWrapper>
-      {/* TODO: map key 추가 */}
+
       {Object.entries(filteredQuestions).map((questions) => (
         <div key={questions[0]}>
           {questions[1].length > 0 && <ReceiveDate>{questions[0]}</ReceiveDate>}
-          <Questions questions={questions[1]} handleQuestionClick={handleQuestionClick} />
+          <Questions
+            questions={questions[1]}
+            handleQuestionClick={handleQuestionClick}
+          />
         </div>
       ))}
-      <ReactModal isOpen={isOpen} onRequestClose={() => setIsOpen(false)} style={receiveQuestion}>
+      <ReactModal
+        isOpen={isOpen}
+        onRequestClose={() => setIsOpen(false)}
+        style={receiveQuestion}
+      >
         <Modal
           onRequestClose={() => setIsOpen(false)}
-          selectedQuestion={filteredQuestionArr && filteredQuestionArr[selectedIndex]}
+          selectedQuestion={
+            filteredQuestionArr && filteredQuestionArr[selectedIndex]
+          }
           setSelectedIndex={setSelectedIndex}
           currentIndex={selectedIndex}
           arrLength={filteredQuestionArr?.length || 0}

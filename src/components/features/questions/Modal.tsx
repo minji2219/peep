@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import {COMMON} from '@styles/common';
-import {Question} from '@type/question';
+import {selectedQuestion} from '@type/question';
 import {BsX} from 'react-icons/bs';
 import MainCharacterPupple from '@assets/MainCharacterRightEyes.png';
 import Eyes from '@assets/Eyes.png';
@@ -11,12 +11,18 @@ import HintList from './HintList';
 
 interface Props {
   onRequestClose: () => void;
-  selectedQuestion: Question | undefined;
+  selectedQuestion: selectedQuestion | undefined;
   setSelectedIndex: Dispatch<SetStateAction<number>>;
   currentIndex: number;
   arrLength: number;
 }
-const Modal = ({onRequestClose, selectedQuestion, currentIndex, setSelectedIndex, arrLength}: Props) => {
+const Modal = ({
+  onRequestClose,
+  selectedQuestion,
+  currentIndex,
+  setSelectedIndex,
+  arrLength,
+}: Props) => {
   const handleLeftClick = () => {
     if (currentIndex === 0) {
       setSelectedIndex(arrLength - 1);
@@ -42,22 +48,26 @@ const Modal = ({onRequestClose, selectedQuestion, currentIndex, setSelectedIndex
           <CloseBtn onClick={onRequestClose}>
             <BsX size={40} />
           </CloseBtn>
-          <Date>{selectedQuestion?.date}</Date>
+          <Date>{selectedQuestion?.chosenDate}</Date>
           <Title>
-            <Sex>{selectedQuestion?.sex === 'male' ? '남학생' : '여학생'}</Sex>이 보낸 질문
+            <Sex>{selectedQuestion?.sex === 'male' ? '남학생' : '여학생'}</Sex>
+            이 보낸 질문
           </Title>
           <QuestionBox>
             <EyesCharacter src={Eyes} width="70" />
-            {selectedQuestion?.question}
+            {selectedQuestion?.questionDto.content}
           </QuestionBox>
           <Badge>
-            누가 날 <span style={{color: COMMON.color.primary}}>PICK</span> 했을까?
+            누가 날 <span style={{color: COMMON.color.primary}}>PICK</span>{' '}
+            했을까?
           </Badge>
           <PeepBtn>50코인으로 PEEP하기</PeepBtn>
           <MyCoin>내 코인 : 2000코인</MyCoin>
           <MainCharacter src={MainCharacterPupple} width="180" />
         </Wrapper>
-        {selectedQuestion?.hint && <HintList sex={selectedQuestion.sex} hints={selectedQuestion.hint} />}
+        {selectedQuestion?.hint && (
+          <HintList sex={selectedQuestion.sex} hints={selectedQuestion.hint} />
+        )}
       </Container>
       <Arrow onClick={handleRightClick}>
         <BsChevronRight size={20} />
@@ -142,7 +152,11 @@ const PeepBtn = styled.div`
   border-radius: 50px;
   padding: 12px 0;
   text-align: center;
-  background: linear-gradient(45deg, ${COMMON.color.yellow}, ${COMMON.color.primary});
+  background: linear-gradient(
+    45deg,
+    ${COMMON.color.yellow},
+    ${COMMON.color.primary}
+  );
   cursor: pointer;
 `;
 

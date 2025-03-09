@@ -1,17 +1,17 @@
-import {Question} from 'type/question';
+import {selectedQuestion} from 'type/question';
 
-const questions: Question[] = [
+const questions: selectedQuestion[] = [
   {
-    key: '1',
-    date: '24.12.06',
-    question: '질문1',
+    id: 1,
+    chosenDate: '24.12.06',
+    questionDto: {content: '질문1'},
     hint: null,
     sex: 'male',
   },
   {
-    key: '2',
-    date: '24.12.06',
-    question: '질문2',
+    id: 2,
+    chosenDate: '24.12.06',
+    questionDto: {content: '질문2'},
     hint: [
       {
         category: 'personality',
@@ -34,9 +34,9 @@ const questions: Question[] = [
     sex: 'male',
   },
   {
-    key: '3',
-    date: '24.12.06',
-    question: '질문3',
+    id: 3,
+    chosenDate: '24.12.06',
+    questionDto: {content: '질문3'},
     hint: [
       {
         category: 'personality',
@@ -59,23 +59,23 @@ const questions: Question[] = [
     sex: 'female',
   },
   {
-    key: '4',
-    date: '24.12.05',
-    question: '질문1',
+    id: 4,
+    chosenDate: '24.12.05',
+    questionDto: {content: '질문4'},
     hint: null,
     sex: 'female',
   },
   {
-    key: '5',
-    date: '24.12.05',
-    question: '질문2',
+    id: 5,
+    chosenDate: '24.12.05',
+    questionDto: {content: '질문5'},
     hint: null,
     sex: 'male',
   },
   {
-    key: '6',
-    date: '24.12.04',
-    question: '질문1',
+    id: 6,
+    chosenDate: '24.12.04',
+    questionDto: {content: '질문6'},
     hint: null,
     sex: 'male',
   },
