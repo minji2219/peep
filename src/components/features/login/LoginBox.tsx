@@ -5,40 +5,42 @@ import {PATH} from '@routes/path';
 import {COMMON} from '@styles/common';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import {useNavigate} from 'react-router-dom';
-import {DeviceUUID} from 'device-uuid';
 import {useMutation} from '@tanstack/react-query';
 import {fetchInstance} from 'api/instance';
 import {useAuth} from 'provider/Auth';
+import getDeviceId from '@utils/getDeviceId';
 
 interface FormValues {
   id: string;
   password: string;
   autoLogin?: boolean;
 }
-interface LoginValues extends FormValues {
-  uuid: string;
-}
+
 export const LoginBox = () => {
   const navigate = useNavigate();
   const {register, handleSubmit} = useForm<FormValues>();
   const {login} = useAuth();
 
   const {mutate} = useMutation({
-    mutationFn: async (data: LoginValues) =>
+    mutationFn: async (data: FormValues) =>
       await fetchInstance.post(
-        '/auth/login',
+        'auth/login',
         {
           userId: data.id,
           userPassword: data.password,
         },
         {
           headers: {
-            'Device-Id': data.uuid,
+            'Device-Id': getDeviceId(),
           },
         }
       ),
     onSuccess: (response) => {
-      login(response.data.id, response.data.accessToken, response.data.refreshToken);
+      login(
+        response.data.id,
+        response.data.accessToken,
+        response.data.refreshToken
+      );
 
       navigate(PATH.main);
     },
@@ -48,17 +50,8 @@ export const LoginBox = () => {
   });
 
   const getLogin: SubmitHandler<FormValues> = (postData) => {
-    try {
-      //uuid를 못 가져왔을 때 error캐치
-      const uuid = new DeviceUUID().get();
-      mutate({...postData, uuid: uuid});
-      navigate(PATH.main);
-    } catch (err) {
-      console.log(err);
-      //TODO: test를 위해 uuid 없이도 로그인 시도 수정 필요
-      mutate({...postData, uuid: '1234'});
-      navigate(PATH.main);
-    }
+    mutate(postData);
+    navigate(PATH.main);
   };
 
   return (
@@ -71,16 +64,28 @@ export const LoginBox = () => {
 
       <Form onSubmit={handleSubmit(getLogin)}>
         <Input placeholder="아이디" {...register('id', {required: true})} />
-        <Input placeholder="비밀번호" {...register('password', {required: true})} />
+        <Input
+          placeholder="비밀번호"
+          {...register('password', {required: true})}
+        />
         <Label>
           <Checkbox type="checkbox" {...register('autoLogin')} />
           자동 로그인
         </Label>
         <Button onClick={() => {}}>로그인</Button>
-        <Button type="button" onClick={() => navigate(PATH.agree)} bgColor={COMMON.color.darkGray}>
+        <Button
+          type="button"
+          onClick={() => navigate(PATH.agree)}
+          bgColor={COMMON.color.darkGray}
+        >
           회원가입
         </Button>
-        <Button type="button" onClick={() => {}} bgColor="transparent" style={{color: COMMON.color.lightBlack}}>
+        <Button
+          type="button"
+          onClick={() => {}}
+          bgColor="transparent"
+          style={{color: COMMON.color.lightBlack}}
+        >
           계정을 잊어버리셨나요?
         </Button>
       </Form>

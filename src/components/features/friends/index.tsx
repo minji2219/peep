@@ -14,7 +14,6 @@ const Friends = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [friends, setFriends] = useState<friends[]>();
   const {authInfo} = useAuth();
-
   useQuery({
     queryKey: ['friends'],
     queryFn: async () => {

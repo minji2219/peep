@@ -4,30 +4,21 @@ import {COMMON} from '@styles/common';
 import {useMutation} from '@tanstack/react-query';
 import {fetchAuthInstance} from 'api/instance';
 import {useLocation, useNavigate} from 'react-router-dom';
-import {DeviceUUID} from 'device-uuid';
 import {useAuth} from 'provider/Auth';
+import getDeviceId from '@utils/getDeviceId';
 
 export const NavigationBar = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const {authInfo, logout} = useAuth();
+  const {logout} = useAuth();
 
   const {mutate} = useMutation({
-    mutationFn: async (data: string) =>
-      await fetchAuthInstance.post(
-        '/auth/logout',
-        {
-          accessToken: authInfo?.accessToken,
-          refreshToken: authInfo?.refreshToken,
-          id: authInfo?.userId,
+    mutationFn: async () =>
+      await fetchAuthInstance.post('auth/logout', '', {
+        headers: {
+          'Device-Id': getDeviceId(),
         },
-        {
-          headers: {
-            Authorization: 'Bearer ' + authInfo?.accessToken,
-            'Device-Id': data,
-          },
-        }
-      ),
+      }),
     onSuccess: () => {
       logout();
       navigate(PATH.login);
@@ -38,29 +29,32 @@ export const NavigationBar = () => {
   });
 
   const getLogout = () => {
-    try {
-      //uuid를 못 가져왔을 때 error캐치
-      const uuid = new DeviceUUID().get();
-      mutate(uuid);
-    } catch (err) {
-      console.log(err);
-    }
+    mutate();
   };
   return (
     <Wrapper>
       <LoginState onClick={getLogout}>로그아웃</LoginState>
 
       <MenuList>
-        <Menu onClick={() => navigate(PATH.questions)} presentPage={location.pathname === PATH.questions}>
+        <Menu
+          onClick={() => navigate(PATH.questions)}
+          presentPage={location.pathname === PATH.questions}
+        >
           질문리스트
         </Menu>
-        <Menu onClick={() => navigate(PATH.main)} presentPage={location.pathname === PATH.main}>
+        <Menu
+          onClick={() => navigate(PATH.main)}
+          presentPage={location.pathname === PATH.main}
+        >
           홈
         </Menu>
         {/* <Menu onClick={() => navigate(PATH.friends)} presentPage={location.pathname === PATH.friends}>
           친구
         </Menu> */}
-        <Menu onClick={() => navigate(PATH.mypage)} presentPage={location.pathname === PATH.mypage}>
+        <Menu
+          onClick={() => navigate(PATH.mypage)}
+          presentPage={location.pathname === PATH.mypage}
+        >
           마이페이지
         </Menu>
       </MenuList>

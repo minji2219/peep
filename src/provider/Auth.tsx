@@ -3,8 +3,6 @@ import {createContext, useContext, useState} from 'react';
 
 type AuthInfo = {
   userId: string;
-  accessToken: string;
-  refreshToken: string;
 };
 
 type AuthContextType = {
@@ -13,7 +11,9 @@ type AuthContextType = {
   logout: () => void;
 };
 
-export const AuthContext = createContext<AuthContextType | undefined>(undefined);
+export const AuthContext = createContext<AuthContextType | undefined>(
+  undefined
+);
 
 export const AuthProvider = ({children}: {children: ReactNode}) => {
   const [authInfo, setAuthInfo] = useState<AuthInfo | undefined>(() => {
@@ -35,7 +35,7 @@ export const AuthProvider = ({children}: {children: ReactNode}) => {
     localStorage.setItem('userId', userId);
     localStorage.setItem('accessToken', accessToken);
     localStorage.setItem('refreshToken', refreshToken);
-    setAuthInfo({userId, accessToken, refreshToken});
+    setAuthInfo({userId});
   };
 
   const logout = () => {
@@ -45,7 +45,11 @@ export const AuthProvider = ({children}: {children: ReactNode}) => {
     setAuthInfo(undefined);
   };
 
-  return <AuthContext.Provider value={{authInfo, login, logout}}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{authInfo, login, logout}}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export const useAuth = () => {
