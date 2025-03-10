@@ -10,7 +10,7 @@ import {useState} from 'react';
 import {receivedQuestion} from '@type/question';
 
 const Main = () => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const isQuestion = searchParams.get('question');
   const [questionData, setQuestionData] = useState<receivedQuestion>();
 
@@ -24,6 +24,10 @@ const Main = () => {
     },
   });
 
+  const handleQuestionClick = (id: number) => {
+    setSearchParams({question: `${id}`});
+  };
+
   return (
     <Wrapper>
       {isQuestion ? (
@@ -31,9 +35,11 @@ const Main = () => {
       ) : (
         <div>
           <CommonQuestion
+            id={questionData?.commonQuestions[0]?.id || 0}
             question={
               questionData?.commonQuestions[0]?.questionDto?.content || ''
             }
+            handleQuestionClick={handleQuestionClick}
           />
           <Description>
             <Line />이 질문들도 Pick해 보세요!
@@ -42,7 +48,7 @@ const Main = () => {
           <Questions
             questions={questionData?.randomQuestions || []}
             isPick
-            handleQuestionClick={() => {}}
+            handleQuestionClick={handleQuestionClick}
           />
         </div>
       )}

@@ -2,11 +2,17 @@ import styled from '@emotion/styled';
 import {COMMON} from '@styles/common';
 import Arrow from '@assets/RightArrow.png';
 
-const Bubble = ({question}: {question: string}) => {
+interface Props {
+  id: number;
+  question: string;
+  handleQuestionClick: (id: number) => void;
+}
+
+const Bubble = ({id, question, handleQuestionClick}: Props) => {
   return (
     <Wrapper>
       {question}
-      <PickArrow>
+      <PickArrow onClick={() => handleQuestionClick(id)}>
         <div>Pick!</div>
         <img src={Arrow} alt="화살표" />
       </PickArrow>

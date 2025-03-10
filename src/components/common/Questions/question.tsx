@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import {COMMON} from '@styles/common';
 import Arrow from '@assets/RightArrow.png';
-import {useSearchParams} from 'react-router-dom';
 interface Props {
   id: number;
   question: string;
@@ -10,13 +9,11 @@ interface Props {
 }
 
 const RandomQuestion = ({id, question, isPick, handleQuestionClick}: Props) => {
-  const [, setSearchParams] = useSearchParams();
-
   return (
     <Wrapper isPick={isPick} onClick={() => handleQuestionClick(id)}>
       {question}
       {isPick && (
-        <PickArrow onClick={() => setSearchParams({question: '111'})}>
+        <PickArrow onClick={() => handleQuestionClick}>
           <div>Pick!</div>
           <img src={Arrow} alt="화살표" />
         </PickArrow>
