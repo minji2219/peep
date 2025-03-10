@@ -5,23 +5,43 @@ import {useState} from 'react';
 import {BsPlus} from 'react-icons/bs';
 import ReactModal from 'react-modal';
 import Modal from './Modal';
-import {friends} from './mockdata';
+import {useQuery} from '@tanstack/react-query';
+import {fetchAuthInstance} from 'api/instance';
+import {useAuth} from 'provider/Auth';
+import {friends} from '@type/friends';
 
 const Friends = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [friends, setFriends] = useState<friends[]>();
+  const {authInfo} = useAuth();
 
+  useQuery({
+    queryKey: ['friends'],
+    queryFn: async () => {
+      const response = await fetchAuthInstance.get(
+        `follow/getFollowingList?userId=${authInfo?.userId}`
+      );
+
+      setFriends(response.data);
+      return response.data;
+    },
+  });
   return (
     <Wrapper>
       <Title>친구</Title>
       <FriendList>
-        {friends.slice(0, 3).map((friend) => (
-          <Profile image={friend.profile} />
+        {friends?.slice(0, 3).map((friend) => (
+          <Profile image={friend.photoDto.photoUrl} />
         ))}
         <Plus onClick={() => setIsOpen(true)}>
           <BsPlus size={35} />
         </Plus>
       </FriendList>
-      <ReactModal isOpen={isOpen} onRequestClose={() => setIsOpen(false)} style={friendList}>
+      <ReactModal
+        isOpen={isOpen}
+        onRequestClose={() => setIsOpen(false)}
+        style={friendList}
+      >
         <Modal onRequestClose={() => setIsOpen(false)} />
       </ReactModal>
     </Wrapper>

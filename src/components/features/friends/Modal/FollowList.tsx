@@ -1,17 +1,25 @@
 import styled from '@emotion/styled';
 import {COMMON} from '@styles/common';
-import {friends} from '../mockdata';
 import Follow from './Follow';
 import {BsChevronLeft, BsChevronRight} from 'react-icons/bs';
 import {Dispatch, SetStateAction, useEffect, useRef, useState} from 'react';
+import {friends} from '@type/friends';
 
 interface Props {
+  friends: friends[] | [];
   active: boolean;
   position?: string;
   onClick: () => void;
   setIsDetail: Dispatch<SetStateAction<boolean>>;
 }
-const FollowList = ({active, position = 'relative', onClick, setIsDetail}: Props) => {
+
+const FollowList = ({
+  friends,
+  active,
+  position = 'relative',
+  onClick,
+  setIsDetail,
+}: Props) => {
   const [scrollHeight, setScrollHeight] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -20,8 +28,14 @@ const FollowList = ({active, position = 'relative', onClick, setIsDetail}: Props
       setScrollHeight(containerRef.current.scrollHeight);
     }
   }, []);
+
   return (
-    <Wrapper ref={containerRef} onClick={onClick} position={position} active={active}>
+    <Wrapper
+      ref={containerRef}
+      onClick={onClick}
+      position={position}
+      active={active}
+    >
       <Overlay active={active} scrollHeight={scrollHeight}>
         <LeftArrow onClick={() => {}}>
           <BsChevronLeft size={20} />
@@ -33,21 +47,26 @@ const FollowList = ({active, position = 'relative', onClick, setIsDetail}: Props
 
       {/* 미팔로우상태 우선순위 위로 */}
       {friends
-        .sort((a, b) => {
+        ?.sort((a, b) => {
           if (a.follow === b.follow) {
             return 0;
           }
           return a.follow ? 1 : -1;
         })
         .map((friend) => (
-          <Follow profile={friend.profile} name={friend.name} follow={friend.follow} setIsDetail={setIsDetail} />
+          <Follow
+            profile={friend.photoDto.photoUrl}
+            name={friend.name}
+            follow={friend.follow}
+            setIsDetail={setIsDetail}
+          />
         ))}
     </Wrapper>
   );
 };
 export default FollowList;
 
-const Wrapper = styled.div<Omit<Props, 'setIsDetail'>>`
+const Wrapper = styled.div<Omit<Props, 'setIsDetail' | 'friends'>>`
   position: ${(props) => props.position};
   right: 0;
   width: 80%;
