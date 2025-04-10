@@ -5,7 +5,7 @@ import {randomQuestions, selectedQuestion} from '@type/question';
 interface Props {
   questions: selectedQuestion[] | randomQuestions[];
   isPick?: boolean;
-  handleQuestionClick: (key: number) => void;
+  handleQuestionClick: (key: number, question: string) => void;
 }
 const Questions = ({questions, handleQuestionClick, isPick}: Props) => {
   if (questions.length === 0) return <div></div>;

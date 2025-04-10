@@ -5,14 +5,14 @@ import Arrow from '@assets/RightArrow.png';
 interface Props {
   id: number;
   question: string;
-  handleQuestionClick: (id: number) => void;
+  handleQuestionClick: (id: number, question: string) => void;
 }
 
 const Bubble = ({id, question, handleQuestionClick}: Props) => {
   return (
     <Wrapper>
       {question}
-      <PickArrow onClick={() => handleQuestionClick(id)}>
+      <PickArrow onClick={() => handleQuestionClick(id, question)}>
         <div>Pick!</div>
         <img src={Arrow} alt="화살표" />
       </PickArrow>

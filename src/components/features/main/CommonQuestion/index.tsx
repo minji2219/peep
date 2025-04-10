@@ -6,7 +6,7 @@ import MainCharacter from '@assets/MainCharacterPupple.png';
 interface Props {
   id: number;
   question: string;
-  handleQuestionClick: (id: number) => void;
+  handleQuestionClick: (id: number, question: string) => void;
 }
 
 const CommonQuestion = ({id, question, handleQuestionClick}: Props) => {

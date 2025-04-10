@@ -5,12 +5,12 @@ interface Props {
   id: number;
   question: string;
   isPick?: boolean;
-  handleQuestionClick: (key: number) => void;
+  handleQuestionClick: (key: number, question: string) => void;
 }
 
 const RandomQuestion = ({id, question, isPick, handleQuestionClick}: Props) => {
   return (
-    <Wrapper isPick={isPick} onClick={() => handleQuestionClick(id)}>
+    <Wrapper isPick={isPick} onClick={() => handleQuestionClick(id, question)}>
       {question}
       {isPick && (
         <PickArrow onClick={() => handleQuestionClick}>

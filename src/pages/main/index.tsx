@@ -12,32 +12,34 @@ import {receivedQuestion} from '@type/question';
 const Main = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const isQuestion = searchParams.get('question');
-  const [questionData, setQuestionData] = useState<receivedQuestion>();
+  const [questionList, setQuestionList] = useState<receivedQuestion>();
+  const [question, setQuestion] = useState('');
 
   useQuery({
     queryKey: ['questions'],
     queryFn: async () => {
       const response = await fetchAuthInstance.get('question/getQuestionList');
 
-      setQuestionData(response.data);
+      setQuestionList(response.data);
       return response.data;
     },
   });
 
-  const handleQuestionClick = (id: number) => {
+  const handleQuestionClick = (id: number, question: string) => {
+    setQuestion(question);
     setSearchParams({question: `${id}`});
   };
 
   return (
     <Wrapper>
       {isQuestion ? (
-        <Question />
+        <Question question={question} />
       ) : (
         <div>
           <CommonQuestion
-            id={questionData?.commonQuestions[0]?.id || 0}
+            id={questionList?.commonQuestions[0]?.id || 0}
             question={
-              questionData?.commonQuestions[0]?.questionDto?.content || ''
+              questionList?.commonQuestions[0]?.questionDto?.content || ''
             }
             handleQuestionClick={handleQuestionClick}
           />
@@ -46,7 +48,7 @@ const Main = () => {
             <Line />
           </Description>
           <Questions
-            questions={questionData?.randomQuestions || []}
+            questions={questionList?.randomQuestions || []}
             isPick
             handleQuestionClick={handleQuestionClick}
           />

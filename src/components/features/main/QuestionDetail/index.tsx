@@ -4,7 +4,7 @@ import CharacterYellow from '@assets/MainCharacterYellow.png';
 import CharacterPupple from '@assets/MainCharacterPupple.png';
 import Friends from './Friends';
 
-const Question = () => {
+const Question = ({question}: {question: string}) => {
   // TODO: 랜덤 학생 불러오기
   return (
     <Wrapper>
@@ -12,9 +12,9 @@ const Question = () => {
       <QuestionWrapper>
         <LeftCharacter />
         <RightCharacter />
-        <QuestionBox>공통질문</QuestionBox>
+        <QuestionBox>{question}</QuestionBox>
       </QuestionWrapper>
-      <Friends question="공통질문" />
+      <Friends question={question} />
     </Wrapper>
   );
 };
