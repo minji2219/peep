@@ -8,6 +8,8 @@ import {Dispatch, SetStateAction, useState} from 'react';
 import {useQuery} from '@tanstack/react-query';
 import {fetchAuthInstance} from 'api/instance';
 import {FriendDetail, hashtagDtoList} from '@type/friends';
+import useUnFollow from 'api/hooks/unFollow';
+import useNewFollow from 'api/hooks/newFollow';
 
 interface Props {
   detailId: string;
@@ -19,6 +21,9 @@ const Detail = ({detailId, setDetailId}: Props) => {
   const [hashtags, setHashtags] = useState<{[key: string]: string[]} | object>(
     {}
   );
+
+  const {mutate: unFollow} = useUnFollow(detailId);
+  const {mutate: newFollow} = useNewFollow(detailId);
 
   useQuery({
     queryKey: ['detail', detailId],
@@ -95,7 +100,10 @@ const Detail = ({detailId, setDetailId}: Props) => {
       </Community>
 
       <Container>
-        <FollowBtn isFollowed={detailInfo.isFollowedByMe}>
+        <FollowBtn
+          isFollowed={detailInfo.isFollowedByMe}
+          onClick={() => (detailInfo.isFollowedByMe ? unFollow() : newFollow())}
+        >
           {detailInfo.isFollowedByMe ? '팔로잉' : '맞팔로우'}
         </FollowBtn>
         <FollowWrapper>

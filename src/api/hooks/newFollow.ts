@@ -11,6 +11,7 @@ const useNewFollow = (userId: string) =>
     onSuccess: () => {
       queryClient.invalidateQueries({queryKey: ['follower']});
       queryClient.invalidateQueries({queryKey: ['following']});
+      queryClient.invalidateQueries({queryKey: ['detail', userId]});
     },
     onError: (error) => {
       console.log(error);
