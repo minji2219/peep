@@ -3,9 +3,9 @@ import FollowList from './FollowList';
 import {useState} from 'react';
 import {Dispatch, SetStateAction} from 'react';
 import {COMMON} from '@styles/common';
-import {useQuery} from '@tanstack/react-query';
-import {fetchAuthInstance} from 'api/instance';
 import {useAuth} from 'provider/Auth';
+import useGetFollowers from 'api/hooks/getFollowers';
+import useGetFollowings from 'api/hooks/getFollowings';
 import {FriendsType} from '@type/friends';
 
 interface Props {
@@ -15,30 +15,9 @@ const FollowFollowerList = ({setDetailId}: Props) => {
   const [followerClick, setFollwerClick] = useState<boolean>(true);
   const [followingClick, setFollowingClick] = useState<boolean>(false);
   const {authInfo} = useAuth();
-  const [following, setFollowing] = useState<FriendsType[]>();
-  const [follower, setFollower] = useState<FriendsType[]>();
 
-  useQuery({
-    queryKey: ['following'],
-    queryFn: async () => {
-      const response = await fetchAuthInstance.get(
-        `follow/getFollowingList?userId=${authInfo?.userId}`
-      );
-      setFollowing(response.data);
-      return response.data;
-    },
-  });
-
-  useQuery({
-    queryKey: ['follower'],
-    queryFn: async () => {
-      const response = await fetchAuthInstance.get(
-        `/follow/getFollowerList?userId=${authInfo?.userId}`
-      );
-      setFollower(response.data);
-      return response.data;
-    },
-  });
+  const {data: follower} = useGetFollowers(authInfo?.userId || '');
+  const {data: following} = useGetFollowings(authInfo?.userId || '');
 
   return (
     <>
@@ -60,7 +39,7 @@ const FollowFollowerList = ({setDetailId}: Props) => {
         {/* 팔로잉 목록 */}
         <FollowList
           friends={
-            following?.map((friend) => ({
+            following?.map((friend: FriendsType) => ({
               ...friend,
               isFollowedByMe: true,
             })) || []

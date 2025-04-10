@@ -1,6 +1,8 @@
 import {Button} from '@components/common/Button';
 import styled from '@emotion/styled';
 import {COMMON} from '@styles/common';
+import useNewFollow from 'api/hooks/newFollow';
+import useUnFollow from 'api/hooks/unFollow';
 import {Dispatch, SetStateAction} from 'react';
 
 interface Props {
@@ -12,6 +14,8 @@ interface Props {
 }
 
 const Follow = ({profile, name, follow, userId, setDetailId}: Props) => {
+  const {mutate: unFollow} = useUnFollow(userId);
+  const {mutate: newFollow} = useNewFollow(userId);
   return (
     <Wrapper>
       <Profile onClick={() => setDetailId(userId)}>
@@ -29,7 +33,7 @@ const Follow = ({profile, name, follow, userId, setDetailId}: Props) => {
             ? ''
             : `linear-gradient(40deg, ${COMMON.color.darkBackgroundColor}, ${COMMON.color.primary})`,
         }}
-        onClick={() => {}}
+        onClick={() => (follow ? unFollow() : newFollow())}
       >
         {follow ? '팔로잉' : '팔로우'}
       </Button>

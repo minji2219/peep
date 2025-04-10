@@ -30,7 +30,7 @@ const Friends = () => {
       <Title>친구</Title>
       <FriendList>
         {friends?.slice(0, 3).map((friend) => (
-          <Profile image={friend.photoDto.photoUrl} />
+          <Profile key={friend.userId} image={friend.photoDto.photoUrl} />
         ))}
         <Plus onClick={() => setIsOpen(true)}>
           <BsPlus size={35} />
