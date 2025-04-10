@@ -12,7 +12,9 @@ export const NavLayout = () => {
 
   return (
     <Wrapper>
-      <LightBox backgroundColor={isQuestion ? COMMON.color.grayFont : undefined}>
+      <LightBox
+        backgroundColor={isQuestion ? COMMON.color.grayFont : undefined}
+      >
         <NavigationBar />
         <Outlet />
       </LightBox>
@@ -37,6 +39,4 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 50px;
-  position: absolute;
-  right: -260px;
 `;
