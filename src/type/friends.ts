@@ -1,6 +1,5 @@
 export interface friends {
-  grade: number;
-  myClass: number;
+  isFollowedByMe: boolean;
   name: string;
   photoDto: {photoUrl: string};
   userId: string;

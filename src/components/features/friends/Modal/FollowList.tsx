@@ -48,16 +48,16 @@ const FollowList = ({
       {/* 미팔로우상태 우선순위 위로 */}
       {friends
         ?.sort((a, b) => {
-          if (a.follow === b.follow) {
+          if (a.isFollowedByMe === b.isFollowedByMe) {
             return 0;
           }
-          return a.follow ? 1 : -1;
+          return a.isFollowedByMe ? 1 : -1;
         })
         .map((friend) => (
           <Follow
             profile={friend.photoDto.photoUrl}
             name={friend.name}
-            follow={friend.follow}
+            follow={friend.isFollowedByMe}
             setIsDetail={setIsDetail}
           />
         ))}
