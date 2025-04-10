@@ -59,7 +59,12 @@ const FollowFollowerList = ({setIsDetail}: Props) => {
         />
         {/* 팔로잉 목록 */}
         <FollowList
-          friends={following || []}
+          friends={
+            following?.map((friend) => ({
+              ...friend,
+              isFollowedByMe: true,
+            })) || []
+          }
           setIsDetail={setIsDetail}
           active={followingClick}
           onClick={() => {
