@@ -4,9 +4,9 @@ import {friends} from '../mockdata';
 import {Dispatch, SetStateAction} from 'react';
 
 interface Props {
-  setIsDetail: Dispatch<SetStateAction<boolean>>;
+  setDetailId: Dispatch<SetStateAction<string>>;
 }
-const SearchList = ({setIsDetail}: Props) => {
+const SearchList = ({setDetailId}: Props) => {
   return (
     <Wrapper>
       {friends
@@ -17,7 +17,12 @@ const SearchList = ({setIsDetail}: Props) => {
           return a.follow ? 1 : -1;
         })
         .map((friend) => (
-          <Follow profile={friend.profile} name={friend.name} follow={friend.follow} setIsDetail={setIsDetail} />
+          <Follow
+            profile={friend.profile}
+            name={friend.name}
+            follow={friend.follow}
+            setDetailId={setDetailId}
+          />
         ))}
     </Wrapper>
   );

@@ -5,21 +5,21 @@ import {BsChevronLeft} from 'react-icons/bs';
 import {COMMON} from '@styles/common';
 
 interface Props {
-  setIsDetail: Dispatch<SetStateAction<boolean>>;
+  setDetailId: Dispatch<SetStateAction<string>>;
   revertMain: () => void;
 }
-const RecommendList = ({setIsDetail, revertMain}: Props) => {
+const RecommendList = ({setDetailId, revertMain}: Props) => {
   return (
     <Wrapper>
       <BackBtn onClick={revertMain}>
         <BsChevronLeft size={25} />
       </BackBtn>
 
-      <Recommend setIsDetail={setIsDetail} />
-      <Recommend setIsDetail={setIsDetail} />
-      <Recommend setIsDetail={setIsDetail} />
-      <Recommend setIsDetail={setIsDetail} />
-      <Recommend setIsDetail={setIsDetail} />
+      <Recommend setDetailId={setDetailId} />
+      <Recommend setDetailId={setDetailId} />
+      <Recommend setDetailId={setDetailId} />
+      <Recommend setDetailId={setDetailId} />
+      <Recommend setDetailId={setDetailId} />
     </Wrapper>
   );
 };

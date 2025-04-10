@@ -5,6 +5,7 @@ import CharacterPupple from '@assets/MainCharacterPupple.png';
 import Friends from './Friends';
 
 const Question = () => {
+  // TODO: 랜덤 학생 불러오기
   return (
     <Wrapper>
       <Title>누가 떠오르시나요?</Title>

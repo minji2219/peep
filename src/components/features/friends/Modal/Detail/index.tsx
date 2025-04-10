@@ -1,17 +1,52 @@
 import styled from '@emotion/styled';
 import {COMMON} from '@styles/common';
-import {friendsDetail} from '../../mockdata';
 import HashTag from './HashTag';
 import {BsX} from 'react-icons/bs';
 import {AiOutlineMore} from 'react-icons/ai';
 import {Button} from '@components/common/Button';
 import {Dispatch, SetStateAction, useState} from 'react';
+import {useQuery} from '@tanstack/react-query';
+import {fetchAuthInstance} from 'api/instance';
+import {FriendDetail, hashtagDtoList} from '@type/friends';
 
 interface Props {
-  setIsDetail: Dispatch<SetStateAction<boolean>>;
+  detailId: string;
+  setDetailId: Dispatch<SetStateAction<string>>;
 }
-const Detail = ({setIsDetail}: Props) => {
+const Detail = ({detailId, setDetailId}: Props) => {
   const [menuClick, setMenuClick] = useState(false);
+  const [detailInfo, setDetailInfo] = useState<FriendDetail>();
+  const [hashtags, setHashtags] = useState<{[key: string]: string[]} | object>(
+    {}
+  );
+
+  useQuery({
+    queryKey: ['detail', detailId],
+    queryFn: async () => {
+      const response = await fetchAuthInstance.get(
+        `/students?userId=${detailId}`
+      );
+      setDetailInfo(response.data);
+
+      if (response.data.hashtagDtoList) {
+        const result = response.data.hashtagDtoList.reduce(
+          (acc: {[key: string]: string[]}, item: hashtagDtoList) => {
+            const {hashtag, content} = item;
+            if (!acc[hashtag]) {
+              acc[hashtag] = [];
+            }
+            acc[hashtag].push(content);
+            return acc;
+          },
+          {}
+        );
+
+        setHashtags(result);
+      }
+      return response.data;
+    },
+  });
+  if (!detailInfo) return;
 
   return (
     <Wrapper>
@@ -19,10 +54,26 @@ const Detail = ({setIsDetail}: Props) => {
         <AiOutlineMore size={30} />
         {menuClick && (
           <MenuBtns>
-            <Button bgColor="white" color="black" onClick={() => {}} style={{boxShadow: '0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)'}}>
+            <Button
+              bgColor="white"
+              color="black"
+              onClick={() => {}}
+              style={{
+                boxShadow:
+                  '0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)',
+              }}
+            >
               차단
             </Button>
-            <Button bgColor="white" color="black" onClick={() => {}} style={{boxShadow: '0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)'}}>
+            <Button
+              bgColor="white"
+              color="black"
+              onClick={() => {}}
+              style={{
+                boxShadow:
+                  '0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)',
+              }}
+            >
               신고
             </Button>
           </MenuBtns>
@@ -31,36 +82,39 @@ const Detail = ({setIsDetail}: Props) => {
 
       <CloseBtn
         onClick={() => {
-          setIsDetail(false);
+          setDetailId('');
         }}
       >
         <BsX size={40} />
       </CloseBtn>
 
-      <Profile profile={friendsDetail.profile} />
-      <Name>{friendsDetail.name}</Name>
+      <Profile profile={detailInfo.photoDto.photoUrl} />
+      <Name>{detailInfo.name}</Name>
       <Community>
-        {friendsDetail.grade}학년 {friendsDetail.class}반
+        {detailInfo.grade}학년 {detailInfo.myClass}반
       </Community>
 
       <Container>
-        <FollowBtn>맞팔로우</FollowBtn>
+        <FollowBtn isFollowed={detailInfo.isFollowedByMe}>
+          {detailInfo.isFollowedByMe ? '팔로잉' : '맞팔로우'}
+        </FollowBtn>
         <FollowWrapper>
           <Follow>
             <div>팔로워</div>
-            <div style={{fontWeight: 'bold'}}>{friendsDetail.follower}</div>
+            <div style={{fontWeight: 'bold'}}>{detailInfo.followerCount}</div>
           </Follow>
           <Follow>
             <div>팔로잉</div>
-            <div style={{fontWeight: 'bold'}}>{friendsDetail.following}</div>
+            <div style={{fontWeight: 'bold'}}>{detailInfo.followingCount}</div>
           </Follow>
         </FollowWrapper>
       </Container>
 
       <Space />
       <HashTags>
-        <HashTag tags={friendsDetail.hashtags.hobby} />
-        <HashTag tags={friendsDetail.hashtags.personality} />
+        {Object.entries(hashtags).map(([key, value]) => (
+          <HashTag key={key} category={key} tags={value} />
+        ))}
       </HashTags>
     </Wrapper>
   );
@@ -151,13 +205,15 @@ const FollowBtn = styled.div`
   cursor: pointer;
   border-radius: 30px;
   color: white;
-  background-color: ${COMMON.color.primary};
   padding-top: 60px;
   padding-bottom: 10px;
   text-align: center;
   width: 100%;
   position: absolute;
   top: 30px;
+
+  background-color: ${(props: {isFollowed: boolean}) =>
+    props.isFollowed ? COMMON.color.lightBlack : COMMON.color.primary};
 `;
 
 const Space = styled.div`

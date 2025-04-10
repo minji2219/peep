@@ -3,14 +3,14 @@ import {COMMON} from '@styles/common';
 import Follow from './Follow';
 import {BsChevronLeft, BsChevronRight} from 'react-icons/bs';
 import {Dispatch, SetStateAction, useEffect, useRef, useState} from 'react';
-import {friends} from '@type/friends';
+import {FriendsType} from '@type/friends';
 
 interface Props {
-  friends: friends[] | [];
+  friends: FriendsType[] | [];
   active: boolean;
   position?: string;
   onClick: () => void;
-  setIsDetail: Dispatch<SetStateAction<boolean>>;
+  setDetailId: Dispatch<SetStateAction<string>>;
 }
 
 const FollowList = ({
@@ -18,7 +18,7 @@ const FollowList = ({
   active,
   position = 'relative',
   onClick,
-  setIsDetail,
+  setDetailId,
 }: Props) => {
   const [scrollHeight, setScrollHeight] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -55,10 +55,12 @@ const FollowList = ({
         })
         .map((friend) => (
           <Follow
+            key={friend.userId}
+            userId={friend.userId}
             profile={friend.photoDto.photoUrl}
             name={friend.name}
             follow={friend.isFollowedByMe}
-            setIsDetail={setIsDetail}
+            setDetailId={setDetailId}
           />
         ))}
     </Wrapper>
@@ -66,7 +68,7 @@ const FollowList = ({
 };
 export default FollowList;
 
-const Wrapper = styled.div<Omit<Props, 'setIsDetail' | 'friends'>>`
+const Wrapper = styled.div<Omit<Props, 'setDetailId' | 'friends'>>`
   position: ${(props) => props.position};
   right: 0;
   width: 80%;

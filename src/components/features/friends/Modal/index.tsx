@@ -13,7 +13,7 @@ interface Props {
   onRequestClose: () => void;
 }
 const Modal = ({onRequestClose}: Props) => {
-  const [isDetail, setIsDetail] = useState(false);
+  const [detailId, setDetailId] = useState<string>('');
   const [isRecommend, setIsRecommend] = useState(false);
   const [input, setInput] = useState<string>();
 
@@ -38,15 +38,19 @@ const Modal = ({onRequestClose}: Props) => {
               setIsRecommend(false);
             }}
           />
-          {!isRecommend && !input && <FollowFollowerList setIsDetail={setIsDetail} />}
-          {isRecommend && <RecommendList revertMain={revertMain} setIsDetail={setIsDetail} />}
-          {isRecommend || (input && <SearchList setIsDetail={setIsDetail} />)}
+          {!isRecommend && !input && (
+            <FollowFollowerList setDetailId={setDetailId} />
+          )}
+          {isRecommend && (
+            <RecommendList revertMain={revertMain} setDetailId={setDetailId} />
+          )}
+          {isRecommend || (input && <SearchList setDetailId={setDetailId} />)}
         </Wrapper>
         {isRecommend || (
           <Button
             onClick={() => {
               setIsRecommend(true);
-              setIsDetail(false);
+              setDetailId('');
             }}
             style={{width: '180px'}}
           >
@@ -54,7 +58,9 @@ const Modal = ({onRequestClose}: Props) => {
           </Button>
         )}
       </Container>
-      {isDetail && <Detail setIsDetail={setIsDetail} />}
+      {detailId !== '' && (
+        <Detail detailId={detailId} setDetailId={setDetailId} />
+      )}
     </Around>
   );
 };

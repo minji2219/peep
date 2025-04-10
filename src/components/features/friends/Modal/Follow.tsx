@@ -4,16 +4,17 @@ import {COMMON} from '@styles/common';
 import {Dispatch, SetStateAction} from 'react';
 
 interface Props {
+  userId: string;
   profile: string;
   name: string;
-  follow: boolean; //follow:true =>팔로우 상태, follow:false => 미팔로우 상태
-  setIsDetail: Dispatch<SetStateAction<boolean>>;
+  follow: boolean;
+  setDetailId: Dispatch<SetStateAction<string>>;
 }
 
-const Follow = ({profile, name, follow, setIsDetail}: Props) => {
+const Follow = ({profile, name, follow, userId, setDetailId}: Props) => {
   return (
     <Wrapper>
-      <Profile onClick={() => setIsDetail(true)}>
+      <Profile onClick={() => setDetailId(userId)}>
         <ProfileImage profile={profile} />
         <Name>{name}</Name>
       </Profile>
@@ -21,7 +22,13 @@ const Follow = ({profile, name, follow, setIsDetail}: Props) => {
         bgColor={follow ? COMMON.color.lightBackgroundColor : ''}
         color={follow ? COMMON.color.darkGray : 'white'}
         padding="2px 10px"
-        style={{width: '100px', height: '30px', background: follow ? '' : `linear-gradient(40deg, ${COMMON.color.darkBackgroundColor}, ${COMMON.color.primary})`}}
+        style={{
+          width: '100px',
+          height: '30px',
+          background: follow
+            ? ''
+            : `linear-gradient(40deg, ${COMMON.color.darkBackgroundColor}, ${COMMON.color.primary})`,
+        }}
         onClick={() => {}}
       >
         {follow ? '팔로잉' : '팔로우'}

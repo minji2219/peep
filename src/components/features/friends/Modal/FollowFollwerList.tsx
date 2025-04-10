@@ -6,17 +6,17 @@ import {COMMON} from '@styles/common';
 import {useQuery} from '@tanstack/react-query';
 import {fetchAuthInstance} from 'api/instance';
 import {useAuth} from 'provider/Auth';
-import {friends} from '@type/friends';
+import {FriendsType} from '@type/friends';
 
 interface Props {
-  setIsDetail: Dispatch<SetStateAction<boolean>>;
+  setDetailId: Dispatch<SetStateAction<string>>;
 }
-const FollowFollowerList = ({setIsDetail}: Props) => {
+const FollowFollowerList = ({setDetailId}: Props) => {
   const [followerClick, setFollwerClick] = useState<boolean>(true);
   const [followingClick, setFollowingClick] = useState<boolean>(false);
   const {authInfo} = useAuth();
-  const [following, setFollowing] = useState<friends[]>();
-  const [follower, setFollower] = useState<friends[]>();
+  const [following, setFollowing] = useState<FriendsType[]>();
+  const [follower, setFollower] = useState<FriendsType[]>();
 
   useQuery({
     queryKey: ['following'],
@@ -50,7 +50,7 @@ const FollowFollowerList = ({setIsDetail}: Props) => {
         {/* 팔로워 목록 */}
         <FollowList
           friends={follower || []}
-          setIsDetail={setIsDetail}
+          setDetailId={setDetailId}
           active={followerClick}
           onClick={() => {
             setFollwerClick(true);
@@ -65,7 +65,7 @@ const FollowFollowerList = ({setIsDetail}: Props) => {
               isFollowedByMe: true,
             })) || []
           }
-          setIsDetail={setIsDetail}
+          setDetailId={setDetailId}
           active={followingClick}
           onClick={() => {
             setFollwerClick(false);

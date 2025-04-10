@@ -2,15 +2,16 @@ import styled from '@emotion/styled';
 import {COMMON} from '@styles/common';
 
 interface Props {
+  category: string;
   tags: string[];
 }
-const HashTag = ({tags}: Props) => {
+const HashTag = ({category, tags}: Props) => {
   return (
     <Wrapper>
-      <Introduce>제 취미는</Introduce>
+      <Introduce>제 {category}는</Introduce>
       <Tags>
-        {tags.map((tag) => (
-          <Tag>#{tag}</Tag>
+        {tags.map((tag, idx) => (
+          <Tag key={idx}>#{tag}</Tag>
         ))}
       </Tags>
       <End>입니다</End>

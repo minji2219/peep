@@ -8,11 +8,11 @@ import Modal from './Modal';
 import {useQuery} from '@tanstack/react-query';
 import {fetchAuthInstance} from 'api/instance';
 import {useAuth} from 'provider/Auth';
-import {friends} from '@type/friends';
+import {FriendsType} from '@type/friends';
 
 const Friends = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [friends, setFriends] = useState<friends[]>();
+  const [friends, setFriends] = useState<FriendsType[]>();
   const {authInfo} = useAuth();
   useQuery({
     queryKey: ['friends'],

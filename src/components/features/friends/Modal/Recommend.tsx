@@ -4,13 +4,13 @@ import {friendsDetail} from '../mockdata';
 import {Dispatch, SetStateAction} from 'react';
 
 interface Props {
-  setIsDetail: Dispatch<SetStateAction<boolean>>;
+  setDetailId: Dispatch<SetStateAction<string>>;
 }
-const Recommend = ({setIsDetail}: Props) => {
+const Recommend = ({setDetailId}: Props) => {
   return (
     <Wrapper
       onClick={() => {
-        setIsDetail(true);
+        setDetailId('1234');
       }}
     >
       <FollowBtn>팔로우</FollowBtn>
@@ -34,7 +34,14 @@ const Profile = styled.div`
   border-radius: 30px;
   width: 138px;
   height: 138px;
-  background: linear-gradient(to bottom, rgba(225, 225, 225, 0) 10%, rgba(225, 225, 225, 0.25) 25%, rgba(225, 225, 225, 0.5) 50%, rgba(225, 225, 225, 0.75) 75%, rgba(225, 225, 225, 1) 100%),
+  background: linear-gradient(
+      to bottom,
+      rgba(225, 225, 225, 0) 10%,
+      rgba(225, 225, 225, 0.25) 25%,
+      rgba(225, 225, 225, 0.5) 50%,
+      rgba(225, 225, 225, 0.75) 75%,
+      rgba(225, 225, 225, 1) 100%
+    ),
     url(${(props: {image?: string}) => props.image});
   background-size: cover;
   position: relative;
