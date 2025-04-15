@@ -1,29 +1,37 @@
 import styled from '@emotion/styled';
 import Arrow from '@assets/UnderArrow.png';
 import {COMMON} from '@styles/common';
-export const GradeClass = () => {
+import {UseFormRegisterReturn} from 'react-hook-form';
+
+const generateOptions = (length: number) =>
+  Array.from({length}, (_, idx) => (
+    <option key={idx + 1} value={idx + 1}>
+      {idx + 1}
+    </option>
+  ));
+
+interface Props {
+  gradeRegister: UseFormRegisterReturn;
+  classRegister: UseFormRegisterReturn;
+}
+
+export const GradeClass = ({gradeRegister, classRegister}: Props) => {
   return (
     <Wrapper>
-      <Description>정확히 기재하지 않는 경우 불이익이 있을 수 있어요.</Description>
-      <Selector>
+      <Description>
+        정확히 기재하지 않는 경우 불이익이 있을 수 있어요.
+      </Description>
+      <Selector {...gradeRegister}>
         <option key={0} value={0}>
           학년
         </option>
-        {[...Array(3)].map((_, idx) => (
-          <option key={idx + 1} value={idx + 1}>
-            {idx + 1}
-          </option>
-        ))}
+        {generateOptions(3)}
       </Selector>
-      <Selector>
+      <Selector {...classRegister}>
         <option key={0} value={0}>
           반
         </option>
-        {[...Array(15)].map((_, idx) => (
-          <option key={idx + 1} value={idx + 1}>
-            {idx + 1}
-          </option>
-        ))}
+        {generateOptions(15)}
       </Selector>
     </Wrapper>
   );

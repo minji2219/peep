@@ -16,8 +16,10 @@ export const DefaultLayout = () => {
 };
 const Layout = styled.div`
   background-color: ${COMMON.color.darkBackgroundColor};
+
   width: 100%;
   min-height: 100vh;
+  overflow-x: auto;
 `;
 
 const Wrapper = styled.div`
