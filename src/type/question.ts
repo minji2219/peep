@@ -2,19 +2,13 @@ export interface Hint {
   category: string;
   hint: string;
 }
-// export interface selectedQuestion {
-//   key: string;
-//   date: string;
-//   question: string;
-//   hint: Hint[] | null;
-//   sex: string;
-// }
 
 export interface selectedQuestion {
+  chosenDate: string;
   id: number;
   questionDto: questionDto;
-  chosenDate: string;
   type: string;
+  writerGender: string;
   hint: Hint[] | null;
 }
 

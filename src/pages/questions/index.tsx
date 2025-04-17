@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import questions from './mockdata';
 import {selectedQuestion} from '@type/question';
 import {COMMON} from '@styles/common';
 import Questions from '@components/common/Questions';
@@ -12,18 +11,24 @@ import {useQuery} from '@tanstack/react-query';
 import {fetchAuthInstance} from 'api/instance';
 
 const QuestionList = () => {
+  const [selectedQuestion, setSelectedQuestion] =
+    useState<selectedQuestion[]>();
+
   useQuery({
     queryKey: ['selectedQuestion'],
     queryFn: async () => {
       const response = await fetchAuthInstance.get(
         'question/getChosenQuestionList'
       );
-      console.log(response.data);
+
+      setSelectedQuestion(response.data);
       return response.data;
     },
   });
 
-  const groupQuestionsByDate = (questions: selectedQuestion[]) => {
+  const groupQuestionsByDate = (questions: selectedQuestion[] | undefined) => {
+    if (!questions) return;
+
     const groupedQuestions = questions.reduce<
       Record<string, selectedQuestion[]>
     >((acc, question) => {
@@ -45,8 +50,8 @@ const QuestionList = () => {
   };
 
   const groupedQuestions = useMemo(
-    () => groupQuestionsByDate(questions),
-    [questions]
+    () => groupQuestionsByDate(selectedQuestion),
+    [selectedQuestion]
   );
 
   // 필터링된 질문 중 날짜별로 한번 더 필터링한 질문들
@@ -59,16 +64,18 @@ const QuestionList = () => {
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
 
   useEffect(() => {
+    if (!groupedQuestions) return;
+
     const filtered = Object.fromEntries(
       Object.entries(groupedQuestions).map(([key, value]) => {
         if (filter === 'hint') {
-          return [key, value.filter((item) => item.hint !== null)];
+          return [key, value.filter((item) => item.hint)];
         }
         if (filter === 'male') {
-          return [key, value.filter((item) => item.sex === 'male')];
+          return [key, value.filter((item) => item.writerGender === 'MALE')];
         }
         if (filter === 'female') {
-          return [key, value.filter((item) => item.sex === 'female')];
+          return [key, value.filter((item) => item.writerGender === 'FEMALE')];
         }
         return [key, value];
       })
@@ -76,7 +83,7 @@ const QuestionList = () => {
     const filteredArr = Object.values(filtered).flatMap((arr) => arr);
     setFilteredQuestionArr(filteredArr);
     setFilteredQuestions(filtered);
-  }, [filter]);
+  }, [filter, groupedQuestions]);
 
   const handleQuestionClick = (key: number) => {
     //처음 클릭된 질문의 index 찾기
@@ -93,15 +100,20 @@ const QuestionList = () => {
         <Filter setFilter={setFilter} />
       </TopWrapper>
 
-      {Object.entries(filteredQuestions).map((questions) => (
-        <div key={questions[0]}>
-          {questions[1].length > 0 && <ReceiveDate>{questions[0]}</ReceiveDate>}
-          <Questions
-            questions={questions[1]}
-            handleQuestionClick={handleQuestionClick}
-          />
-        </div>
-      ))}
+      {filteredQuestions &&
+        Object.entries(filteredQuestions).map(
+          ([key, value]) =>
+            value.length > 0 && (
+              <div key={key}>
+                <ReceiveDate>{key}</ReceiveDate>
+                <Questions
+                  questions={value}
+                  handleQuestionClick={handleQuestionClick}
+                />
+              </div>
+            )
+        )}
+
       <ReactModal
         isOpen={isOpen}
         onRequestClose={() => setIsOpen(false)}
